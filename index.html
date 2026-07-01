@@ -465,7 +465,7 @@ body{
   color:var(--vermilion);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
 }
 .trip-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;
 }
 .trip-card{
   border:1px solid rgba(199,154,99,.18);border-radius:8px;overflow:hidden;
@@ -478,31 +478,54 @@ body{
   opacity:.62;z-index:1;
 }
 .trip-media{
-  aspect-ratio:4/3;background:rgba(239,229,214,.38);overflow:hidden;
+  aspect-ratio:4/5;background:rgba(239,229,214,.38);overflow:hidden;
 }
 .trip-media img{
   display:block;width:100%;height:100%;object-fit:cover;
 }
-.trip-card.qutub .trip-media img{object-position:center 44%}
-.trip-card.lotus .trip-media img{object-position:center 35%}
-.trip-card.taj .trip-media img{object-position:center 28%}
+.trip-card.akshardham .trip-media img{object-position:center 50%}
+.trip-card.qutub .trip-media img{object-position:center 38%}
+.trip-card.lotus .trip-media img{object-position:center 34%}
+.trip-card.taj .trip-media img{object-position:center 22%}
 .trip-copy{
-  padding:1.2rem 1.25rem 1.35rem;
+  padding:.95rem 1rem 1.05rem;
 }
 .trip-meta{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.6rem;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.55rem;
 }
 .trip-place{
   font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--vermilion);
 }
 .trip-kind{
   font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mehendi);
+  text-align:right;
 }
 .trip-title{
-  font-family:var(--editorial);font-size:1.45rem;font-weight:460;color:var(--ink);margin-bottom:.45rem;
+  font-family:var(--editorial);font-size:1.18rem;font-weight:460;color:var(--ink);margin-bottom:.34rem;
 }
 .trip-body{
-  font-size:.83rem;line-height:1.75;color:var(--muted);
+  font-size:.74rem;line-height:1.58;color:var(--muted);
+}
+.trip-links{
+  margin-top:1.6rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;
+}
+.trip-link-card{
+  display:block;padding:1rem 1.05rem;border-radius:8px;
+  border:1px solid rgba(199,154,99,.2);background:rgba(255,251,247,.76);
+  text-decoration:none;color:inherit;box-shadow:0 12px 30px rgba(145,110,90,.05);
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.trip-link-card:hover{
+  transform:translateY(-2px);border-color:rgba(157,93,99,.34);box-shadow:0 16px 34px rgba(157,93,99,.09);
+}
+.trip-link-label{
+  display:block;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--vermilion);margin-bottom:.45rem;
+}
+.trip-link-title{
+  display:block;font-family:var(--editorial);font-size:1.06rem;font-weight:450;color:var(--ink);line-height:1.3;margin-bottom:.38rem;
+}
+.trip-link-copy{
+  display:block;font-size:.76rem;line-height:1.62;color:var(--muted);
 }
 
 /* ─── RSVP ─── */
@@ -715,11 +738,13 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     padding-left:1rem;
     padding-right:1rem;
   }
-  .trip-grid{grid-template-columns:1fr}
+  .trip-grid{grid-template-columns:1fr 1fr;gap:.9rem}
+  .trip-links{grid-template-columns:1fr}
   .trip-heading{margin-bottom:2rem}
   .trip-heading p{font-size:.86rem}
-  .trip-copy{padding:1.1rem 1.1rem 1.25rem}
-  .trip-title{font-size:1.32rem}
+  .trip-copy{padding:.9rem .95rem 1rem}
+  .trip-title{font-size:1.08rem}
+  .trip-body{font-size:.72rem}
   .route-panel{
     min-height:132px;
     padding:1.25rem .8rem;
@@ -1414,7 +1439,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     </div>
 
     <div class="trip-grid">
-      <article class="trip-card reveal">
+      <article class="trip-card akshardham reveal">
         <div class="trip-media">
           <img src="images/trip/akshardham-mandir.jpg" alt="Akshardham Mandir in Delhi" loading="lazy"/>
         </div>
@@ -1469,6 +1494,24 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <p class="trip-body">Not in Delhi, but an easy add-on if you are staying a little longer and want to turn the wedding trip into something bigger. It is the obvious one for a reason.</p>
         </div>
       </article>
+    </div>
+
+    <div class="trip-links reveal">
+      <a class="trip-link-card" href="https://www.emmasdaydream.com/blog/top-10-things-to-do-new-delhi" target="_blank" rel="noopener">
+        <span class="trip-link-label">More ideas</span>
+        <span class="trip-link-title">Top 10 things to do in New Delhi</span>
+        <span class="trip-link-copy">A broad list if you want a few more classic Delhi stops and food ideas beyond the wedding weekend.</span>
+      </a>
+      <a class="trip-link-card" href="https://www.sunshineseeker.com/destinations/2-day-new-delhi-itinerary/" target="_blank" rel="noopener">
+        <span class="trip-link-label">Short itinerary</span>
+        <span class="trip-link-title">The ultimate 2 day New Delhi itinerary</span>
+        <span class="trip-link-copy">Helpful if you are planning a compact first visit and want someone else to map out the pacing.</span>
+      </a>
+      <a class="trip-link-card" href="https://www.cntraveller.in/story/places-to-visit-in-delhi-that-are-not-tourist-traps/" target="_blank" rel="noopener">
+        <span class="trip-link-label">Local flavour</span>
+        <span class="trip-link-title">Places to visit in Delhi that are not tourist traps</span>
+        <span class="trip-link-copy">Good for anyone who wants a few less-obvious suggestions alongside the bigger landmark visits.</span>
+      </a>
     </div>
   </div>
 </section>
