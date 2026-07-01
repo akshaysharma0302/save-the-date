@@ -36,7 +36,10 @@
   --editorial:'Fraunces',Georgia,serif;
   --fs:'Manrope',system-ui,sans-serif;
 }
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:clamp(1rem,3vw,2rem);
+}
 body{
   background:
     linear-gradient(90deg,rgba(169,120,34,.045) 1px,transparent 1px),
@@ -234,6 +237,13 @@ body{
 
 /* ─── COUNTDOWN ─── */
 #countdown{padding:4.5rem 1.5rem;text-align:center}
+#traditions,
+#places,
+#countdown,
+#story,
+#rsvp{
+  scroll-margin-top:clamp(1rem,3vw,2rem);
+}
 .section-eyebrow{
   font-family:var(--fs);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
   color:var(--vermilion);margin-bottom:2.2rem;
@@ -493,10 +503,154 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   }
 }
 @media(max-width:640px){
+  body{
+    background-size:22px 22px,22px 22px,auto,auto,auto;
+  }
+  #hero{
+    min-height:100svh;
+    justify-content:center;
+    padding:4.9rem 1.05rem 6.6rem;
+  }
+  #hero::before{
+    inset:3.8rem .6rem 2.5rem;
+    background:radial-gradient(ellipse at center,rgba(255,253,247,.96) 0%,rgba(255,253,247,.84) 45%,rgba(255,253,247,.24) 76%,rgba(255,253,247,0) 100%);
+  }
+  .hero-frame{
+    inset:1.35rem .65rem 1.15rem;
+    border-color:rgba(169,120,34,.26);
+    box-shadow:inset 0 0 0 5px rgba(255,255,255,.28),0 16px 42px rgba(122,74,18,.045);
+  }
+  .hero-frame::before{
+    inset:.62rem;
+    background-size:18px 18px,18px 18px;
+    opacity:.3;
+  }
+  .hero-frame::after{
+    top:.75rem;
+    width:min(270px,74vw);
+    height:210px;
+    opacity:.34;
+  }
+  .wedding-kicker{
+    gap:.55rem;
+    font-size:1rem;
+    margin-bottom:.85rem;
+  }
+  .wedding-kicker::before,.wedding-kicker::after{width:28px}
+  .hero-eyebrow{
+    font-size:.58rem;
+    letter-spacing:.26em;
+    margin-bottom:.75rem;
+  }
+  .hero-names{
+    font-family:var(--editorial);
+    font-variation-settings:"SOFT" 74;
+    font-weight:520;
+    font-size:clamp(2.9rem,15.5vw,4.2rem);
+    line-height:.94;
+    letter-spacing:.01em;
+    max-width:7.2em;
+    margin:0 auto;
+    text-wrap:balance;
+  }
+  .hero-names em{
+    display:block;
+    color:#3f2b27;
+  }
+  .hero-amp{
+    font-size:.42em;
+    margin:.16em 0 .12em;
+    color:var(--vermilion);
+  }
+  .diya-row{
+    width:min(280px,72vw);
+    margin:1.05rem auto .92rem;
+  }
+  .hero-date{
+    font-size:1rem;
+    letter-spacing:.12em;
+  }
+  .hero-venue{
+    max-width:19rem;
+    margin:.42rem auto 0;
+    font-size:.64rem;
+    letter-spacing:.17em;
+    line-height:1.7;
+  }
+  #hero .hero-venue + .hero-venue{
+    max-width:16rem;
+    letter-spacing:.12em;
+  }
+  .hero-actions{
+    width:min(100%,292px);
+    margin:1.15rem auto 0;
+    gap:.6rem;
+  }
+  .action-btn{
+    width:100%;
+    min-height:45px;
+    padding:.78rem 1rem;
+    font-size:.62rem;
+    letter-spacing:.14em;
+  }
+  .action-status{
+    max-width:19rem;
+    margin:.55rem auto 0;
+    line-height:1.5;
+  }
+  .hero-monogram{
+    bottom:2.15rem;
+    font-size:.62rem;
+    letter-spacing:.16em;
+  }
+  .scroll-hint{
+    bottom:.95rem;
+    font-size:.54rem;
+    gap:.32rem;
+  }
+  .skyline{
+    width:170vw;
+    height:96px;
+    opacity:.1;
+  }
   .floral-corner{width:118px;height:118px;opacity:.78}
   .floral-corner.top-left,.floral-corner.top-right{top:4.8rem}
   .floral-corner.bottom-left,.floral-corner.bottom-right{bottom:1.7rem}
-  .hero-monogram{bottom:4.5rem;font-size:.68rem}
+  #countdown{padding:3.25rem 1rem}
+  .cd-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1.35rem .9rem;
+    max-width:330px;
+    margin:0 auto;
+  }
+  .cd-sep{display:none}
+  .cd-num{font-size:clamp(2.9rem,16vw,4.2rem)}
+  .cd-label{font-size:.56rem;letter-spacing:.18em}
+  #traditions,#places,#story,#rsvp{
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+  .route-panel{
+    min-height:132px;
+    padding:1.25rem .8rem;
+  }
+  .route-panel::before{
+    font-size:clamp(1.7rem,9vw,2.45rem);
+    line-height:1.05;
+  }
+  .route-panel::after{
+    font-size:.58rem;
+    letter-spacing:.13em;
+    line-height:1.5;
+  }
+  .story-card,.ritual-card,.place-card{
+    padding:1.25rem;
+  }
+  .rsvp-form input{
+    min-height:46px;
+    padding:.72rem .8rem;
+  }
 }
 </style>
 </head>
