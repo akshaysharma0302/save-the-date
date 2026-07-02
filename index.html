@@ -73,18 +73,42 @@ body{
   color:#fffaf6;
   animation:none;
 }
-#audio-start-hint{
-  display:none;position:fixed;left:50%;bottom:1.15rem;transform:translateX(-50%);
-  z-index:220;min-height:46px;padding:.78rem 1.15rem;border-radius:999px;
-  border:1px solid rgba(157,93,99,.24);background:rgba(255,250,246,.94);
-  color:var(--vermilion);font-family:var(--fs);font-size:.64rem;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
-  box-shadow:0 18px 38px rgba(145,110,90,.14);
-  backdrop-filter:blur(12px);
-  transition:transform .25s var(--ease-smooth),opacity .25s var(--ease-smooth),border-color .25s var(--ease-smooth);
+#audio-modal{
+  display:none;position:fixed;inset:0;z-index:260;padding:1.2rem;
+  background:rgba(77,57,53,.18);backdrop-filter:blur(10px);
+  align-items:center;justify-content:center;
 }
-#audio-start-hint.show{display:inline-flex;align-items:center;justify-content:center}
-#audio-start-hint:hover{transform:translateX(-50%) translateY(-2px);border-color:rgba(157,93,99,.46)}
+#audio-modal.show{display:flex}
+.audio-modal-card{
+  width:min(100%,420px);padding:1.35rem 1.2rem 1.15rem;border-radius:18px;
+  border:1px solid rgba(214,182,150,.38);
+  background:linear-gradient(180deg,rgba(255,252,248,.98),rgba(255,246,239,.95));
+  box-shadow:0 30px 60px rgba(91,63,50,.18);
+  text-align:center;
+}
+.audio-modal-kicker{
+  display:block;margin-bottom:.62rem;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--vermilion);
+}
+.audio-modal-title{
+  font-family:var(--editorial);font-size:clamp(1.8rem,6vw,2.4rem);line-height:1.02;color:var(--ink);margin-bottom:.58rem;
+}
+.audio-modal-copy{
+  font-size:.82rem;line-height:1.72;color:var(--muted);max-width:27rem;margin:0 auto;
+}
+.audio-modal-actions{
+  margin-top:1rem;display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;
+}
+.audio-modal-btn{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.78rem 1.08rem;border-radius:999px;
+  border:1px solid rgba(214,182,150,.46);background:rgba(255,250,246,.82);
+  color:#6d514a;font-family:var(--fs);font-size:.63rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 10px 24px rgba(157,93,99,.08);transition:transform .25s var(--ease-smooth),border-color .25s var(--ease-smooth),box-shadow .25s var(--ease-smooth);
+}
+.audio-modal-btn:hover{transform:translateY(-2px);border-color:rgba(157,93,99,.42);box-shadow:0 16px 28px rgba(157,93,99,.14)}
+.audio-modal-btn.primary{
+  background:linear-gradient(135deg,#bf7d84,#9d5d63);
+  border-color:rgba(157,93,99,.72);color:#fffaf6;
+}
 @keyframes audioPulse{
   0%,100%{box-shadow:0 8px 24px rgba(121,77,20,.08)}
   50%{box-shadow:0 12px 30px rgba(157,93,99,.18)}
@@ -878,13 +902,9 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     font-size:.54rem;
     gap:.32rem;
   }
-  #audio-start-hint{
-    width:min(calc(100% - 1.6rem),320px);
-    bottom:1rem;
-    padding:.82rem 1rem;
-    font-size:.61rem;
-    letter-spacing:.12em;
-  }
+  .audio-modal-card{padding:1.2rem 1rem 1rem}
+  .audio-modal-actions{gap:.55rem}
+  .audio-modal-btn{width:min(100%,280px)}
   .skyline{
     display:none;
   }
@@ -949,7 +969,17 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <source type="audio/mpeg"/>
 </audio>
 <button id="audio-btn" aria-label="Stop music">■ Stop Music</button>
-<button id="audio-start-hint" aria-label="Start music">Tap to Start Music</button>
+<div id="audio-modal" aria-hidden="true">
+  <div class="audio-modal-card" role="dialog" aria-modal="true" aria-labelledby="audio-modal-title">
+    <span class="audio-modal-kicker">A little soundtrack</span>
+    <h2 class="audio-modal-title" id="audio-modal-title">Start the music?</h2>
+    <p class="audio-modal-copy">Some phones block audio until the first tap. Start the song here and the page will keep playing it for you.</p>
+    <div class="audio-modal-actions">
+      <button class="audio-modal-btn primary" id="audio-modal-start" type="button">Start Music</button>
+      <button class="audio-modal-btn" id="audio-modal-skip" type="button">Maybe Later</button>
+    </div>
+  </div>
+</div>
 
 <!-- Floating particle canvas -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -2014,7 +2044,9 @@ rsvpEdit.addEventListener('click',()=>{
 // ── Audio
 const au=document.getElementById('bg-audio');
 const btn=document.getElementById('audio-btn');
-const audioHint=document.getElementById('audio-start-hint');
+const audioModal=document.getElementById('audio-modal');
+const audioModalStart=document.getElementById('audio-modal-start');
+const audioModalSkip=document.getElementById('audio-modal-skip');
 let on=false;
 let userStopped=false;
 let autoplayBlocked=false;
@@ -2025,10 +2057,11 @@ if(audioSource&&sourceEl){
   sourceEl.src=audioSource;
   au.load();
 }
-function updateAudioHint(){
-  if(!audioHint)return;
+function updateAudioModal(){
+  if(!audioModal)return;
   const shouldShow=compactAudioUI&&autoplayBlocked&&!on&&!userStopped;
-  audioHint.classList.toggle('show',shouldShow);
+  audioModal.classList.toggle('show',shouldShow);
+  audioModal.setAttribute('aria-hidden',shouldShow?'false':'true');
 }
 function updateAudioButton(){
   if(on){
@@ -2036,14 +2069,14 @@ function updateAudioButton(){
     btn.classList.add('is-playing');
     btn.classList.remove('is-ready');
     btn.setAttribute('aria-label','Stop music');
-    updateAudioHint();
+    updateAudioModal();
     return;
   }
   btn.textContent='\u266A Play Music';
   btn.classList.remove('is-playing');
   btn.classList.add('is-ready');
   btn.setAttribute('aria-label','Play music');
-  updateAudioHint();
+  updateAudioModal();
 }
 async function startAudio({auto=false}={}){
   if(!audioSource||userStopped)return false;
@@ -2096,23 +2129,29 @@ btn.addEventListener('click',async()=>{
     setStatus('Music is ready, but your browser needs a tap before it can start playing.');
   }
 });
-if(audioHint){
-  audioHint.addEventListener('click',async()=>{
+if(audioModalStart){
+  audioModalStart.addEventListener('click',async()=>{
     userStopped=false;
     const started=await startAudio();
     if(!started){
-      setStatus('Your browser is still blocking audio. Use the music button to try again.');
+      setStatus('Your browser is still blocking audio. Try the music button once more.');
     }
   });
 }
-const retryAutoplay=async()=>{
-  if(!autoplayBlocked||on||userStopped)return;
-  await startAudio();
-};
-['touchstart','touchend','pointerdown','click'].forEach(eventName=>{
-  window.addEventListener(eventName,retryAutoplay,{passive:true});
-});
-window.addEventListener('keydown',retryAutoplay);
+if(audioModalSkip){
+  audioModalSkip.addEventListener('click',()=>{
+    autoplayBlocked=false;
+    updateAudioModal();
+  });
+}
+if(audioModal){
+  audioModal.addEventListener('click',event=>{
+    if(event.target===audioModal){
+      autoplayBlocked=false;
+      updateAudioModal();
+    }
+  });
+}
 au.addEventListener('play',()=>{
   on=true;
   autoplayBlocked=false;
@@ -2124,7 +2163,10 @@ au.addEventListener('pause',()=>{
 });
 au.addEventListener('error',()=>{
   btn.style.display='none';
-  if(audioHint)audioHint.classList.remove('show');
+  if(audioModal){
+    audioModal.classList.remove('show');
+    audioModal.setAttribute('aria-hidden','true');
+  }
   setStatus('There was a problem loading the music file.');
 });
 </script>
