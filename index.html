@@ -350,8 +350,14 @@ body.is-ready .hero-animate{
 .traditions-heading p{
   max-width:360px;margin:1.1rem 0 0;color:var(--muted);font-size:.9rem;line-height:1.8;
 }
-.ritual-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.ritual-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.15rem 1.1rem;
+  align-content:start;
+}
 .ritual-card{
+  --reveal-base-y:0px;
   min-height:158px;padding:1.35rem;border:1px solid rgba(169,120,34,.2);border-radius:8px;
   background:
     linear-gradient(180deg,rgba(255,253,247,.86),rgba(255,249,239,.78));
@@ -359,7 +365,7 @@ body.is-ready .hero-animate{
   box-shadow:0 16px 44px rgba(122,74,18,.04);
   position:relative;overflow:hidden;
 }
-.ritual-card:nth-child(2),.ritual-card:nth-child(4){transform:translateY(1.5rem)}
+.ritual-card:nth-child(2),.ritual-card:nth-child(4){--reveal-base-y:1.5rem}
 .ritual-card::after{
   content:'';position:absolute;left:1.35rem;right:1.35rem;top:0;height:2px;
   background:linear-gradient(90deg,var(--vermilion),var(--gold),var(--mehendi));
@@ -430,7 +436,7 @@ body.is-ready .hero-animate{
 }
 @media(max-width:560px){
   .ritual-grid{grid-template-columns:1fr}
-  .ritual-card:nth-child(2),.ritual-card:nth-child(4){transform:none}
+  .ritual-card:nth-child(2),.ritual-card:nth-child(4){--reveal-base-y:0px}
   .hero-actions{gap:.55rem}
   .action-btn{width:min(100%,280px)}
 }
@@ -645,18 +651,18 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 /* ─── REVEAL ─── */
 .reveal{
   opacity:0;
-  transform:translateY(24px) scale(.985);
+  transform:translateY(calc(var(--reveal-base-y,0px) + 24px)) scale(.985);
   transition:opacity .85s var(--ease-smooth),transform .85s var(--ease-smooth);
   transition-delay:var(--reveal-delay,0s);
 }
-.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.in{opacity:1;transform:translateY(var(--reveal-base-y,0px)) scale(1)}
 
 @media(hover:hover) and (pointer:fine){
   .trip-card:hover,
   .story-card:hover,
   .place-card:hover,
   .ritual-card:hover{
-    transform:translateY(-6px);
+    transform:translateY(calc(var(--reveal-base-y,0px) - 6px)) scale(1);
     box-shadow:0 22px 48px rgba(145,110,90,.12);
     border-color:rgba(157,93,99,.24);
   }
@@ -668,7 +674,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal{opacity:1;transform:translateY(var(--reveal-base-y,0px))}
   .hero-frame,
   .hero-monogram,
   .hero-animate{
@@ -860,10 +866,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 </head>
 <body>
 
-<audio id="bg-audio" loop preload="none" data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
+<audio id="bg-audio" loop preload="auto" autoplay playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
   <source type="audio/mpeg"/>
 </audio>
-<button id="audio-btn" aria-label="Play music">♪ Play Music</button>
+<button id="audio-btn" aria-label="Stop music">■ Stop Music</button>
 
 <!-- Floating particle canvas -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -1228,16 +1234,16 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 </section>
 
 <!-- ════════════════ TRADITIONS ════════════════ -->
-<section id="traditions" class="reveal">
+<section id="traditions">
   <div class="traditions-inner">
-    <div class="traditions-heading">
+    <div class="traditions-heading reveal">
       <p class="section-eyebrow">The wedding week</p>
       <h2>A few days with all our favourite people</h2>
       <p>There will be mehendi, haldi, dancing, food, late nights, and probably a few emotional speeches. We can’t wait to have everyone together.</p>
     </div>
 
     <div class="ritual-grid">
-      <article class="ritual-card">
+      <article class="ritual-card reveal">
         <div class="ritual-icon" aria-hidden="true">
           <svg width="46" height="44" viewBox="0 0 46 44">
             <path d="M13 35 C8 27 8 17 14 10 C19 4 29 5 33 12 C37 20 28 25 24 37" fill="none" stroke="#356f4a" stroke-width="1.5"/>
@@ -1250,7 +1256,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <p class="ritual-copy">Henna, music, and that first moment when it really starts to feel like the wedding is here.</p>
       </article>
 
-      <article class="ritual-card">
+      <article class="ritual-card reveal">
         <div class="ritual-icon" aria-hidden="true">
           <svg width="46" height="44" viewBox="0 0 46 44">
             <circle cx="23" cy="22" r="14" fill="#ffd86a" opacity=".85"/>
@@ -1262,7 +1268,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <p class="ritual-copy">A bright, messy, happy morning with turmeric, blessings, and a lot of teasing.</p>
       </article>
 
-      <article class="ritual-card">
+      <article class="ritual-card reveal">
         <div class="ritual-icon" aria-hidden="true">
           <svg width="46" height="44" viewBox="0 0 46 44">
             <path d="M12 30 Q23 12 34 30" fill="none" stroke="#a95d67" stroke-width="1.6"/>
@@ -1276,7 +1282,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <p class="ritual-copy">Dhol, dance practice that may or may not be remembered, and everyone on the floor anyway.</p>
       </article>
 
-      <article class="ritual-card">
+      <article class="ritual-card reveal">
         <div class="ritual-icon" aria-hidden="true">
           <svg width="46" height="44" viewBox="0 0 46 44">
             <path d="M10 34 H36 L32 22 C29 29 17 29 14 22Z" fill="#c0392b" opacity=".85"/>
@@ -1880,11 +1886,49 @@ rsvpEdit.addEventListener('click',()=>{
 const au=document.getElementById('bg-audio');
 const btn=document.getElementById('audio-btn');
 let on=false;
+let userStopped=false;
+let autoplayBlocked=false;
 const audioSource=au.dataset.src?encodeURI(au.dataset.src):'';
 const sourceEl=au.querySelector('source');
 if(audioSource&&sourceEl){
   sourceEl.src=audioSource;
   au.load();
+}
+function updateAudioButton(){
+  if(on){
+    btn.textContent='\u25A0 Stop Music';
+    btn.classList.add('is-playing');
+    btn.classList.remove('is-ready');
+    btn.setAttribute('aria-label','Stop music');
+    return;
+  }
+  btn.textContent='\u266A Play Music';
+  btn.classList.remove('is-playing');
+  btn.classList.add('is-ready');
+  btn.setAttribute('aria-label','Play music');
+}
+async function startAudio({auto=false}={}){
+  if(!audioSource||userStopped)return false;
+  try{
+    await au.play();
+    on=true;
+    autoplayBlocked=false;
+    updateAudioButton();
+    return true;
+  }catch(err){
+    on=false;
+    autoplayBlocked=auto;
+    updateAudioButton();
+    return false;
+  }
+}
+function stopAudio(){
+  au.pause();
+  try{au.currentTime=0;}catch(err){}
+  on=false;
+  userStopped=true;
+  autoplayBlocked=false;
+  updateAudioButton();
 }
 async function setupAudio(){
   if(!audioSource){
@@ -1895,7 +1939,8 @@ async function setupAudio(){
     const response=await fetch(audioSource,{method:'HEAD',cache:'no-store'});
     if(response.ok){
       btn.style.display='inline-flex';
-      btn.classList.add('is-ready');
+      updateAudioButton();
+      await startAudio({auto:true});
     }
   }catch(err){
     btn.style.display='none';
@@ -1904,28 +1949,30 @@ async function setupAudio(){
 setupAudio();
 btn.addEventListener('click',async()=>{
   if(on){
-    au.pause();
-    on=false;
-    btn.textContent='\u266A Play Music';
-    btn.classList.remove('is-playing');
-    btn.classList.add('is-ready');
-    btn.setAttribute('aria-label','Play music');
+    stopAudio();
     return;
   }
-  try{
-    await au.play();
-    on=true;
-    btn.textContent='\u25A0 Pause Music';
-    btn.classList.add('is-playing');
-    btn.classList.remove('is-ready');
-    btn.setAttribute('aria-label','Pause music');
-  }catch(err){
-    on=false;
-    btn.textContent='\u266A Play Music';
-    btn.classList.remove('is-playing');
-    btn.classList.add('is-ready');
-    btn.setAttribute('aria-label','Play music');
+  userStopped=false;
+  const started=await startAudio();
+  if(!started){
     setStatus('Music is ready, but your browser needs a tap before it can start playing.');
+  }
+});
+const retryAutoplay=async()=>{
+  if(!autoplayBlocked||on||userStopped)return;
+  await startAudio();
+};
+window.addEventListener('pointerdown',retryAutoplay,{passive:true});
+window.addEventListener('keydown',retryAutoplay);
+au.addEventListener('play',()=>{
+  on=true;
+  autoplayBlocked=false;
+  updateAudioButton();
+});
+au.addEventListener('pause',()=>{
+  if(!userStopped){
+    on=false;
+    updateAudioButton();
   }
 });
 au.addEventListener('error',()=>{
