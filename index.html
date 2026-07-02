@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Save the date for Akshay and Amrita's wedding in Chattarpur, New Delhi."/>
+<meta name="description" content="Save the date for Akshay and Amrita's wedding in New Delhi, India."/>
 <meta property="og:title" content="Akshay & Amrita — Save the Date"/>
-<meta property="og:description" content="31 January 2027 · Chattarpur, New Delhi"/>
+<meta property="og:description" content="31 January 2027 · New Delhi, India"/>
 <meta property="og:type" content="website"/>
 <meta name="theme-color" content="#f8efe9"/>
 <title>Akshay & Amrita — Save the Date · 31 January 2027</title>
@@ -404,11 +404,11 @@ body.is-ready .hero-animate{
   box-shadow:0 18px 54px rgba(122,74,18,.05);
 }
 .route-panel::before{
-  content:'Canada and Delhi';font-family:var(--editorial);font-size:clamp(1.8rem,4vw,3.3rem);
+  content:'IGI Terminal 3 Airport';font-family:var(--editorial);font-size:clamp(1.8rem,4vw,3.3rem);
   color:var(--ink);letter-spacing:.04em;
 }
 .route-panel::after{
-  content:'home, roots, and everyone we love';margin-top:.4rem;font-size:.68rem;letter-spacing:.18em;
+  content:'airport arrivals, aerocity stays, and easy city connections';margin-top:.4rem;font-size:.68rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--muted);
 }
 .route-art{display:none}
@@ -591,6 +591,7 @@ body.is-ready .hero-animate{
 .trip-media img{
   display:block;width:100%;height:100%;object-fit:cover;
   transition:transform .85s var(--ease-smooth),filter .85s var(--ease-smooth);
+  image-rendering:auto;
 }
 .trip-card.akshardham .trip-media img{object-position:center 50%}
 .trip-card.humayun .trip-media img{object-position:center 48%}
@@ -887,6 +888,13 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     padding-right:1rem;
   }
   .trip-grid{grid-template-columns:1fr;gap:.9rem}
+  .trip-media{aspect-ratio:4/3}
+  .trip-card.akshardham .trip-media{aspect-ratio:16/10}
+  .trip-media img{
+    image-rendering:-webkit-optimize-contrast;
+    backface-visibility:hidden;
+    transform:translateZ(0);
+  }
   .trip-links{grid-template-columns:1fr}
   .trip-heading{margin-bottom:2rem}
   .trip-heading p{font-size:.86rem}
@@ -1346,7 +1354,8 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
             <circle cx="23" cy="17" r="13" fill="none" stroke="#b98522" stroke-width=".9" stroke-dasharray="3 5"/>
           </svg>
         </div>
-        <h3 class="ritual-title">Pheras</h3>
+        <h3 class="ritual-title">Wedding</h3>
+        <p class="ritual-date">31st Jan</p>
         <p class="ritual-copy">The quiet, sacred part of it all: our promises, our families, and the start of married life.</p>
       </article>
     </div>
@@ -1413,11 +1422,11 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       <article class="travel-card reveal">
         <h3>Getting around</h3>
         <strong>Easy ways to move around Delhi</strong>
-        <p>If you are keeping it simple, Aerocity is a very convenient place to stay. These are the easiest transit options we’d point guests toward.</p>
+        <p>If you are keeping it simple, Aerocity is a very convenient place to stay. If you are flying into Delhi, IGI Terminal 3 is the main international arrival point and the easiest anchor for planning the rest of the wedding week.</p>
         <div class="travel-list">
           <div class="travel-item">
             <span class="travel-item-title">Airport Express Metro</span>
-            <span class="travel-item-copy">Best for a quick run between the airport, Aerocity, and central Delhi. The official Delhi Airport metro guide covers stations, timings, and fares. <a href="https://www.newdelhiairport.in/to-and-from-airport/metro/" target="_blank" rel="noopener">View metro info</a>.</span>
+            <span class="travel-item-copy">Best for a quick run between IGI Terminal 3, Aerocity, and central Delhi. The official Delhi Airport metro guide covers stations, timings, and fares. <a href="https://www.newdelhiairport.in/to-and-from-airport/metro/" target="_blank" rel="noopener">View metro info</a>.</span>
           </div>
           <div class="travel-item">
             <span class="travel-item-title">App-based cabs</span>
@@ -1430,6 +1439,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <div class="travel-item">
             <span class="travel-item-title">Airport coach and buses</span>
             <span class="travel-item-copy">Useful for select airport connections and onward travel, though for most wedding guests the metro or cabs will be easier. <a href="https://www.newdelhiairport.in/to-and-from-airport/bus/" target="_blank" rel="noopener">Airport bus details</a>.</span>
+          </div>
+          <div class="travel-item">
+            <span class="travel-item-title">Visa requirements</span>
+            <span class="travel-item-copy">India’s official visa portal has the current visa, e-visa, and application guidance for international travellers. <a href="https://indianvisaonline.gov.in/" target="_blank" rel="noopener">Check India visa requirements</a>.</span>
           </div>
         </div>
       </article>
@@ -1468,36 +1481,6 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <a class="hotel-link" href="https://www.newdelhiairport.in/explore-in-delhi/" target="_blank" rel="noopener">More Delhi visitor info</a>
       </article>
     </div>
-  </div>
-</section>
-
-<!-- ════════════════ COUNTDOWN ════════════════ -->
-<div class="lotus-divider reveal">
-  <hr/>
-  <svg width="48" height="44" viewBox="0 0 48 44" aria-hidden="true">
-    <g fill="none" stroke="#D4A017" stroke-width=".8">
-      <ellipse cx="24" cy="22" rx="5" ry="12"/>
-      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(60,24,22)"/>
-      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(120,24,22)"/>
-      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(180,24,22)"/>
-      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(240,24,22)"/>
-      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(300,24,22)"/>
-    </g>
-    <circle cx="24" cy="22" r="3.5" fill="#D4A017" opacity=".6"/>
-  </svg>
-  <hr/>
-</div>
-
-<section id="countdown" class="reveal">
-  <p class="section-eyebrow">Not long now</p>
-  <div class="cd-grid">
-    <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-label">Days</span></div>
-    <span class="cd-sep">:</span>
-    <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-label">Hours</span></div>
-    <span class="cd-sep">:</span>
-    <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-label">Minutes</span></div>
-    <span class="cd-sep">:</span>
-    <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-label">Seconds</span></div>
   </div>
 </section>
 
@@ -1737,6 +1720,35 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 </section>
 
+<div class="lotus-divider reveal">
+  <hr/>
+  <svg width="48" height="44" viewBox="0 0 48 44" aria-hidden="true">
+    <g fill="none" stroke="#D4A017" stroke-width=".8">
+      <ellipse cx="24" cy="22" rx="5" ry="12"/>
+      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(60,24,22)"/>
+      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(120,24,22)"/>
+      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(180,24,22)"/>
+      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(240,24,22)"/>
+      <ellipse cx="24" cy="22" rx="5" ry="12" transform="rotate(300,24,22)"/>
+    </g>
+    <circle cx="24" cy="22" r="3.5" fill="#D4A017" opacity=".6"/>
+  </svg>
+  <hr/>
+</div>
+
+<section id="countdown" class="reveal">
+  <p class="section-eyebrow">Not long now</p>
+  <div class="cd-grid">
+    <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-label">Days</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-label">Hours</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-label">Minutes</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-label">Seconds</span></div>
+  </div>
+</section>
+
 <!-- ════════════════ RSVP ════════════════ -->
 <div class="lotus-divider reveal">
   <hr/>
@@ -1787,7 +1799,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 <footer>
   <span class="footer-tagline">See you in Delhi.</span>
-  <small>Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; Chattarpur, New Delhi</small>
+  <small>Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; New Delhi, India</small>
 </footer>
 
 </div><!-- /page -->
@@ -1837,10 +1849,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 // ── Event details used by countdown + calendar
 const eventDetails={
   title:'Akshay & Amrita Wedding',
-  location:'Chattarpur, New Delhi, India',
+  location:'New Delhi, India',
   start:new Date('2027-01-31T17:00:00+05:30'),
   end:new Date('2027-02-01T00:00:00+05:30'),
-  description:"Akshay and Amrita are getting married in Chattarpur, New Delhi. We'd love to celebrate with you."
+  description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
 };
 
 function setStatus(message){
