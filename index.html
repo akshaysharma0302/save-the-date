@@ -73,6 +73,18 @@ body{
   color:#fffaf6;
   animation:none;
 }
+#audio-start-hint{
+  display:none;position:fixed;left:50%;bottom:1.15rem;transform:translateX(-50%);
+  z-index:220;min-height:46px;padding:.78rem 1.15rem;border-radius:999px;
+  border:1px solid rgba(157,93,99,.24);background:rgba(255,250,246,.94);
+  color:var(--vermilion);font-family:var(--fs);font-size:.64rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 18px 38px rgba(145,110,90,.14);
+  backdrop-filter:blur(12px);
+  transition:transform .25s var(--ease-smooth),opacity .25s var(--ease-smooth),border-color .25s var(--ease-smooth);
+}
+#audio-start-hint.show{display:inline-flex;align-items:center;justify-content:center}
+#audio-start-hint:hover{transform:translateX(-50%) translateY(-2px);border-color:rgba(157,93,99,.46)}
 @keyframes audioPulse{
   0%,100%{box-shadow:0 8px 24px rgba(121,77,20,.08)}
   50%{box-shadow:0 12px 30px rgba(157,93,99,.18)}
@@ -866,6 +878,13 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     font-size:.54rem;
     gap:.32rem;
   }
+  #audio-start-hint{
+    width:min(calc(100% - 1.6rem),320px);
+    bottom:1rem;
+    padding:.82rem 1rem;
+    font-size:.61rem;
+    letter-spacing:.12em;
+  }
   .skyline{
     display:none;
   }
@@ -930,6 +949,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <source type="audio/mpeg"/>
 </audio>
 <button id="audio-btn" aria-label="Stop music">■ Stop Music</button>
+<button id="audio-start-hint" aria-label="Start music">Tap to Start Music</button>
 
 <!-- Floating particle canvas -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -1994,14 +2014,21 @@ rsvpEdit.addEventListener('click',()=>{
 // ── Audio
 const au=document.getElementById('bg-audio');
 const btn=document.getElementById('audio-btn');
+const audioHint=document.getElementById('audio-start-hint');
 let on=false;
 let userStopped=false;
 let autoplayBlocked=false;
+const compactAudioUI=window.matchMedia('(max-width: 820px), (hover: none), (pointer: coarse)').matches;
 const audioSource=au.dataset.src?encodeURI(au.dataset.src):'';
 const sourceEl=au.querySelector('source');
 if(audioSource&&sourceEl){
   sourceEl.src=audioSource;
   au.load();
+}
+function updateAudioHint(){
+  if(!audioHint)return;
+  const shouldShow=compactAudioUI&&autoplayBlocked&&!on&&!userStopped;
+  audioHint.classList.toggle('show',shouldShow);
 }
 function updateAudioButton(){
   if(on){
@@ -2009,12 +2036,14 @@ function updateAudioButton(){
     btn.classList.add('is-playing');
     btn.classList.remove('is-ready');
     btn.setAttribute('aria-label','Stop music');
+    updateAudioHint();
     return;
   }
   btn.textContent='\u266A Play Music';
   btn.classList.remove('is-playing');
   btn.classList.add('is-ready');
   btn.setAttribute('aria-label','Play music');
+  updateAudioHint();
 }
 async function startAudio({auto=false}={}){
   if(!audioSource||userStopped)return false;
@@ -2026,7 +2055,7 @@ async function startAudio({auto=false}={}){
     return true;
   }catch(err){
     on=false;
-    autoplayBlocked=auto;
+    autoplayBlocked=true;
     updateAudioButton();
     return false;
   }
@@ -2067,11 +2096,22 @@ btn.addEventListener('click',async()=>{
     setStatus('Music is ready, but your browser needs a tap before it can start playing.');
   }
 });
+if(audioHint){
+  audioHint.addEventListener('click',async()=>{
+    userStopped=false;
+    const started=await startAudio();
+    if(!started){
+      setStatus('Your browser is still blocking audio. Use the music button to try again.');
+    }
+  });
+}
 const retryAutoplay=async()=>{
   if(!autoplayBlocked||on||userStopped)return;
   await startAudio();
 };
-window.addEventListener('pointerdown',retryAutoplay,{passive:true});
+['touchstart','touchend','pointerdown','click'].forEach(eventName=>{
+  window.addEventListener(eventName,retryAutoplay,{passive:true});
+});
 window.addEventListener('keydown',retryAutoplay);
 au.addEventListener('play',()=>{
   on=true;
@@ -2079,13 +2119,12 @@ au.addEventListener('play',()=>{
   updateAudioButton();
 });
 au.addEventListener('pause',()=>{
-  if(!userStopped){
-    on=false;
-    updateAudioButton();
-  }
+  on=false;
+  updateAudioButton();
 });
 au.addEventListener('error',()=>{
   btn.style.display='none';
+  if(audioHint)audioHint.classList.remove('show');
   setStatus('There was a problem loading the music file.');
 });
 </script>
