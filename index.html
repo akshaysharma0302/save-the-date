@@ -1124,6 +1124,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       </svg>
     </button>
     <nav class="nav-links" id="site-nav-links" aria-label="Main navigation">
+      <a class="nav-link" href="#about-wedding-intro">About the Wedding</a>
       <a class="nav-link" href="#places">Travel</a>
       <a class="nav-link" href="#story">Our Story</a>
       <a class="nav-link" href="#rsvp">RSVP</a>
@@ -1514,7 +1515,6 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <div class="section-shell">
     <div class="guide-hero reveal" id="about-wedding-intro">
       <div class="guide-copy">
-        <p class="section-kicker">About the Wedding</p>
         <h2 class="section-title">A warm little guide to the celebrations</h2>
         <p class="section-copy">If Indian weddings are new to you, this page is here to make everything feel easy, joyful, and welcoming. Think of it as a friendly overview of the rituals, the flow of the week, what to wear, and a few helpful notes so you can settle in, celebrate, and enjoy every part of it.</p>
         <div class="guide-actions">
@@ -2130,7 +2130,7 @@ function setActiveNavLink(hash){
   });
 }
 function getActiveSectionHash(){
-  const sectionHashes=['#places','#story','#rsvp'];
+  const sectionHashes=['#about-wedding-intro','#places','#story','#rsvp'];
   const activationLine=Math.min(window.innerHeight*.45,getAnchorOffset()+180);
   let activeHash='';
   sectionHashes.forEach(hash=>{
