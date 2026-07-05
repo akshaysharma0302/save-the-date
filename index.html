@@ -94,7 +94,6 @@ body.nav-open{overflow:hidden}
 .nav-link:focus-visible{
   background:rgba(199,154,99,.12);color:var(--ink);transform:translateY(-1px);outline:none;
 }
-.nav-link-featured,
 .nav-link[aria-current="page"]{
   background:linear-gradient(135deg,rgba(191,125,132,.16),rgba(199,154,99,.12));
   color:var(--vermilion);
@@ -1125,7 +1124,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       </svg>
     </button>
     <nav class="nav-links" id="site-nav-links" aria-label="Main navigation">
-      <a class="nav-link nav-link-featured" href="#about-wedding-intro">About the Wedding</a>
+      <a class="nav-link" href="#about-wedding-intro">About the Wedding</a>
       <a class="nav-link" href="#places">Travel</a>
       <a class="nav-link" href="#story">Our Story</a>
       <a class="nav-link" href="#rsvp">RSVP</a>
@@ -2120,6 +2119,29 @@ function scrollToHashTarget(hash,{behavior='smooth'}={}){
   updateAnchorOffset();
   const top=target.getBoundingClientRect().top+window.scrollY-getAnchorOffset();
   window.scrollTo({top:Math.max(0,top),behavior});
+  setActiveNavLink(resolvedHash);
+}
+function setActiveNavLink(hash){
+  if(!navLinks)return;
+  const activeHash=normalizeHashTarget(hash);
+  navLinks.querySelectorAll('a[href^="#"]').forEach(link=>{
+    const linkHash=normalizeHashTarget(link.getAttribute('href')||'');
+    if(linkHash===activeHash)link.setAttribute('aria-current','page');
+    else link.removeAttribute('aria-current');
+  });
+}
+function getActiveSectionHash(){
+  const sectionHashes=['#about-wedding-intro','#places','#story','#rsvp'];
+  const offset=getAnchorOffset()+1;
+  let activeHash='';
+  sectionHashes.forEach(hash=>{
+    const target=document.querySelector(hash);
+    if(target&&target.getBoundingClientRect().top<=offset)activeHash=hash;
+  });
+  return activeHash;
+}
+function updateActiveNavFromScroll(){
+  setActiveNavLink(getActiveSectionHash());
 }
 function handleHashLinkClick(event){
   if(event.defaultPrevented)return;
@@ -2168,6 +2190,7 @@ if(navToggle&&siteHeader&&navLinks){
   }));
   window.addEventListener('resize',()=>{
     updateAnchorOffset();
+    updateActiveNavFromScroll();
     if(window.innerWidth>640)closeMenu();
   });
   window.addEventListener('keydown',event=>{
@@ -2175,7 +2198,9 @@ if(navToggle&&siteHeader&&navLinks){
   });
 }
 document.addEventListener('click',handleHashLinkClick,true);
+window.addEventListener('scroll',updateActiveNavFromScroll,{passive:true});
 updateAnchorOffset();
+updateActiveNavFromScroll();
 if(document.readyState==='complete')scheduleInitialHashSync();
 else{
   document.addEventListener('DOMContentLoaded',scheduleInitialHashSync,{once:true});
