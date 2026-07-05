@@ -1210,10 +1210,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 </header>
 
-<audio id="bg-audio" loop preload="auto" playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
+<audio id="bg-audio" loop preload="auto" playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys .mp3">
   <source type="audio/mpeg"/>
 </audio>
-<button id="audio-btn" aria-label="Stop music">■ Stop Music</button>
+<button id="audio-btn" aria-label="Play music">♪ Play Music</button>
 <div id="audio-modal" aria-hidden="true">
   <div class="audio-modal-card" role="dialog" aria-modal="true" aria-labelledby="audio-modal-title">
     <span class="audio-modal-kicker">A little soundtrack</span>
@@ -2603,16 +2603,9 @@ async function setupAudio(){
     btn.style.display='none';
     return;
   }
-  try{
-    const response=await fetch(audioSource,{method:'HEAD',cache:'no-store'});
-    if(response.ok){
-      btn.style.display='inline-flex';
-      updateAudioButton();
-      openAudioModal();
-    }
-  }catch(err){
-    btn.style.display='none';
-  }
+  btn.style.display='inline-flex';
+  updateAudioButton();
+  openAudioModal();
 }
 setupAudio();
 btn.addEventListener('click',async()=>{
