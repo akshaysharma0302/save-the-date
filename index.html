@@ -36,7 +36,7 @@
   --hero-bg:url('images/pc-background.png');
   --hero-focus-y:50%;
   --hero-shift:0px;
-  --anchor-offset:5.1rem;
+  --anchor-offset:6.6rem;
   --display:'Bodoni Moda',Didot,'Bodoni 72',serif;
   --editorial:'Fraunces',Georgia,serif;
   --fs:'Manrope',system-ui,sans-serif;
@@ -450,7 +450,7 @@ body.is-ready .hero-animate{
 }
 #about-wedding-intro{scroll-margin-top:0}
 .guide-copy .section-title{
-  margin-top:1rem;
+  margin-top:0;
   max-width:8.8em;
   margin-left:auto;
   margin-right:auto;
@@ -2105,7 +2105,7 @@ function normalizeHashTarget(hash){
 function getAnchorOffset(){
   if(!siteHeader)return 0;
   const headerBottom=siteHeader.getBoundingClientRect().bottom;
-  return Math.ceil(headerBottom);
+  return Math.ceil(headerBottom+24);
 }
 function updateAnchorOffset(){
   document.documentElement.style.setProperty('--anchor-offset',`${getAnchorOffset()}px`);
