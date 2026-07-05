@@ -42,7 +42,7 @@
 }
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:clamp(1rem,3vw,2rem);
+  scroll-padding-top:5.8rem;
 }
 body{
   background:
@@ -54,10 +54,62 @@ body{
   background-size:30px 30px,30px 30px,auto,auto,auto;
   color:var(--ink);font-family:var(--fs);font-weight:300;overflow-x:hidden;
 }
+body.nav-open{overflow:hidden}
+
+/* ─── SITE NAV ─── */
+.site-header{
+  position:fixed;top:1rem;left:50%;transform:translateX(-50%);
+  width:min(calc(100% - 2rem),1120px);z-index:240;
+}
+.site-nav-shell{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:62px;padding:.8rem 1rem;border-radius:999px;
+  border:1px solid rgba(214,182,150,.36);
+  background:rgba(255,250,246,.82);
+  box-shadow:0 18px 44px rgba(122,74,18,.09);
+  backdrop-filter:blur(14px);
+}
+.nav-brand{
+  display:inline-flex;align-items:center;gap:.72rem;
+  color:var(--ink);text-decoration:none;font-family:var(--editorial);
+  font-size:1.02rem;font-weight:500;letter-spacing:.04em;
+}
+.nav-brand-mark{
+  width:32px;height:32px;border-radius:999px;display:grid;place-items:center;
+  border:1px solid rgba(199,154,99,.28);
+  background:linear-gradient(135deg,rgba(255,249,244,.96),rgba(239,208,160,.46));
+  color:var(--vermilion);font-size:.82rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);
+}
+.nav-links{
+  display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;
+}
+.nav-link{
+  display:inline-flex;align-items:center;justify-content:center;min-height:38px;
+  padding:.65rem .95rem;border-radius:999px;text-decoration:none;
+  color:#6d514a;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  transition:background .25s var(--ease-smooth),color .25s var(--ease-smooth),transform .25s var(--ease-smooth),box-shadow .25s var(--ease-smooth);
+}
+.nav-link:hover,
+.nav-link:focus-visible{
+  background:rgba(199,154,99,.12);color:var(--ink);transform:translateY(-1px);outline:none;
+}
+.nav-link-featured,
+.nav-link[aria-current="page"]{
+  background:linear-gradient(135deg,rgba(191,125,132,.16),rgba(199,154,99,.12));
+  color:var(--vermilion);
+  box-shadow:inset 0 0 0 1px rgba(157,93,99,.12);
+}
+.nav-toggle{
+  display:none;align-items:center;justify-content:center;
+  width:42px;height:42px;border-radius:999px;border:1px solid rgba(214,182,150,.38);
+  background:rgba(255,252,248,.9);color:var(--vermilion);cursor:pointer;
+  box-shadow:0 8px 18px rgba(122,74,18,.08);
+}
+.nav-toggle svg{width:18px;height:18px}
 
 /* ─── AUDIO ─── */
 #audio-btn{
-  display:none;position:fixed;top:1.2rem;right:1.4rem;z-index:200;
+  display:none;position:fixed;top:6rem;right:1.4rem;z-index:200;
   background:rgba(255,253,248,0.9);backdrop-filter:blur(10px);
   border:1px solid var(--line);color:var(--vermilion);
   font-family:var(--fs);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
@@ -124,7 +176,7 @@ body{
 #hero{
   min-height:100svh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:6rem 1.5rem 5.5rem;position:relative;overflow:hidden;
+  text-align:center;padding:7.4rem 1.5rem 5.5rem;position:relative;overflow:hidden;
   isolation:isolate;
   background-image:
     linear-gradient(180deg,rgba(255,249,244,.56) 0%,rgba(255,248,242,.2) 24%,rgba(255,246,240,.1) 58%,rgba(250,240,232,.66) 100%),
@@ -167,7 +219,7 @@ body{
   display:none;
 }
 .hero-frame{
-  position:absolute;inset:5.2rem clamp(1rem,6vw,5rem) 4rem;border:1px solid rgba(214,182,150,.42);
+  position:absolute;inset:6.35rem clamp(1rem,6vw,5rem) 4rem;border:1px solid rgba(214,182,150,.42);
   border-radius:8px;pointer-events:none;
   background:
     linear-gradient(180deg,rgba(255,251,247,.54),rgba(255,250,246,.18) 36%,rgba(255,248,243,.5) 100%),
@@ -800,8 +852,41 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   #hero{
     min-height:100svh;
     justify-content:center;
-    padding:4.9rem 1.05rem 6.6rem;
+    padding:6rem 1.05rem 6.6rem;
     background-position:center center,center calc(var(--hero-focus-y) + var(--hero-shift));
+  }
+  .site-header{
+    top:.75rem;
+    width:min(calc(100% - 1rem),1120px);
+  }
+  .site-nav-shell{
+    min-height:58px;padding:.6rem .7rem;border-radius:26px;
+    align-items:flex-start;
+  }
+  .nav-brand{
+    font-size:.94rem;
+    min-height:42px;
+  }
+  .nav-toggle{
+    display:inline-flex;
+    flex-shrink:0;
+  }
+  .nav-links{
+    position:absolute;left:0;right:0;top:calc(100% + .55rem);
+    display:grid;gap:.45rem;padding:.75rem;border-radius:22px;
+    border:1px solid rgba(214,182,150,.36);
+    background:rgba(255,250,246,.96);
+    box-shadow:0 20px 40px rgba(122,74,18,.11);
+    opacity:0;pointer-events:none;transform:translateY(-8px);
+    transition:opacity .25s var(--ease-smooth),transform .25s var(--ease-smooth);
+  }
+  .site-header.menu-open .nav-links{
+    opacity:1;pointer-events:auto;transform:translateY(0);
+  }
+  .nav-link{
+    width:100%;justify-content:flex-start;
+    min-height:44px;padding:.85rem 1rem;
+    background:rgba(255,255,255,.56);
   }
   #hero::before{
     inset:0;
@@ -810,7 +895,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       radial-gradient(ellipse at center,rgba(255,252,248,.8) 0%,rgba(255,249,244,.58) 34%,rgba(255,248,242,.18) 58%,rgba(255,248,242,0) 76%);
   }
   .hero-frame{
-    inset:1.35rem .65rem 1.15rem;
+    inset:2rem .65rem 1.15rem;
     border-color:rgba(214,182,150,.36);
     box-shadow:inset 0 0 0 5px rgba(255,255,255,.22),0 16px 42px rgba(145,110,90,.08);
   }
@@ -902,6 +987,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     font-size:.54rem;
     gap:.32rem;
   }
+  #audio-btn{
+    top:5.2rem;
+    right:1rem;
+  }
   .audio-modal-card{padding:1.2rem 1rem 1rem}
   .audio-modal-actions{gap:.55rem}
   .audio-modal-btn{width:min(100%,280px)}
@@ -964,6 +1053,27 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 </style>
 </head>
 <body>
+
+<header class="site-header" id="site-header">
+  <div class="site-nav-shell">
+    <a class="nav-brand" href="index.html#hero" aria-label="Akshay and Amrita home">
+      <span class="nav-brand-mark" aria-hidden="true">AA</span>
+      <span>Akshay &amp; Amrita</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Open menu">
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4 6h12M4 10h12M4 14h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <nav class="nav-links" id="site-nav-links" aria-label="Main navigation">
+      <a class="nav-link" href="index.html#traditions">Events</a>
+      <a class="nav-link" href="index.html#places">Travel</a>
+      <a class="nav-link nav-link-featured" href="about-wedding.html">About the Wedding</a>
+      <a class="nav-link" href="index.html#story">Our Story</a>
+      <a class="nav-link" href="index.html#rsvp">RSVP</a>
+    </nav>
+  </div>
+</header>
 
 <audio id="bg-audio" loop preload="auto" autoplay playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
   <source type="audio/mpeg"/>
@@ -1356,6 +1466,21 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       <article class="ritual-card reveal">
         <div class="ritual-icon" aria-hidden="true">
           <svg width="46" height="44" viewBox="0 0 46 44">
+            <path d="M10 31 C15 20 22 14 32 12" fill="none" stroke="#356f4a" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="27" r="4" fill="#e7cfa6"/>
+            <circle cx="23" cy="20" r="4" fill="#a95d67" opacity=".88"/>
+            <circle cx="31" cy="15" r="4" fill="#ffd86a" opacity=".78"/>
+            <path d="M12 35 H34" stroke="#b98522" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="ritual-title">Engagement &amp; Sangeet</h3>
+        <p class="ritual-date">26th Jan</p>
+        <p class="ritual-copy">The evening begins with our engagement ceremony, then opens into a joyful sangeet full of music, dancing, and family celebration.</p>
+      </article>
+
+      <article class="ritual-card reveal">
+        <div class="ritual-icon" aria-hidden="true">
+          <svg width="46" height="44" viewBox="0 0 46 44">
             <path d="M13 35 C8 27 8 17 14 10 C19 4 29 5 33 12 C37 20 28 25 24 37" fill="none" stroke="#356f4a" stroke-width="1.5"/>
             <path d="M18 16 C21 18 25 18 28 15" fill="none" stroke="#b98522" stroke-width="1"/>
             <circle cx="21" cy="23" r="2.5" fill="#a95d67" opacity=".62"/>
@@ -1378,21 +1503,6 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <h3 class="ritual-title">Haldi</h3>
         <p class="ritual-date">30th Jan</p>
         <p class="ritual-copy">A bright, messy, happy morning with turmeric, blessings, and a lot of teasing.</p>
-      </article>
-
-      <article class="ritual-card reveal">
-        <div class="ritual-icon" aria-hidden="true">
-          <svg width="46" height="44" viewBox="0 0 46 44">
-            <path d="M12 30 Q23 12 34 30" fill="none" stroke="#a95d67" stroke-width="1.6"/>
-            <circle cx="14" cy="30" r="4" fill="#e7cfa6"/>
-            <circle cx="23" cy="19" r="4" fill="#a95d67"/>
-            <circle cx="32" cy="30" r="4" fill="#e7cfa6"/>
-            <path d="M12 36 H34" stroke="#b98522" stroke-width="1.2"/>
-          </svg>
-        </div>
-        <h3 class="ritual-title">Sangeet</h3>
-        <p class="ritual-date">29th Jan</p>
-        <p class="ritual-copy">Dhol, dance practice that may or may not be remembered, and everyone on the floor anyway.</p>
       </article>
 
       <article class="ritual-card reveal">
@@ -1855,6 +1965,30 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 </div><!-- /page -->
 
 <script>
+// ── Navigation
+const siteHeader=document.getElementById('site-header');
+const navToggle=document.getElementById('nav-toggle');
+const navLinks=document.getElementById('site-nav-links');
+function closeMenu(){
+  siteHeader.classList.remove('menu-open');
+  document.body.classList.remove('nav-open');
+  navToggle.setAttribute('aria-expanded','false');
+}
+if(navToggle&&siteHeader&&navLinks){
+  navToggle.addEventListener('click',()=>{
+    const isOpen=siteHeader.classList.toggle('menu-open');
+    document.body.classList.toggle('nav-open',isOpen);
+    navToggle.setAttribute('aria-expanded',String(isOpen));
+  });
+  navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  window.addEventListener('resize',()=>{
+    if(window.innerWidth>640)closeMenu();
+  });
+  window.addEventListener('keydown',event=>{
+    if(event.key==='Escape')closeMenu();
+  });
+}
+
 // ── Particles
 (function(){
   const c=document.getElementById('bg-canvas');
