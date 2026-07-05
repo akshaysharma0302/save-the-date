@@ -425,7 +425,7 @@ body.is-ready .hero-animate{
 
 /* ─── CELEBRATION DETAILS ─── */
 #traditions{
-  padding:5.5rem 1.5rem 4.85rem;
+  padding:3.6rem 1.5rem 4.85rem;
   background:linear-gradient(180deg,rgba(255,249,244,.12),rgba(246,210,214,.08),rgba(255,249,244,0));
 }
 .section-shell{max-width:1080px;margin:0 auto}
@@ -448,6 +448,7 @@ body.is-ready .hero-animate{
 .guide-hero{
   max-width:760px;margin:0 auto 1.7rem;text-align:center;
 }
+#about-wedding-intro{scroll-margin-top:6.9rem}
 .guide-copy .section-title{
   margin-top:1rem;
   max-width:8.8em;
@@ -1113,7 +1114,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 <header class="site-header" id="site-header">
   <div class="site-nav-shell">
-    <a class="nav-brand" href="index.html#hero" aria-label="Akshay and Amrita home">
+    <a class="nav-brand" href="#hero" aria-label="Akshay and Amrita home">
       <span class="nav-brand-mark" aria-hidden="true">AA</span>
       <span>Akshay &amp; Amrita</span>
     </a>
@@ -1123,15 +1124,15 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       </svg>
     </button>
     <nav class="nav-links" id="site-nav-links" aria-label="Main navigation">
-      <a class="nav-link nav-link-featured" href="index.html#traditions">About the Wedding</a>
-      <a class="nav-link" href="index.html#places">Travel</a>
-      <a class="nav-link" href="index.html#story">Our Story</a>
-      <a class="nav-link" href="index.html#rsvp">RSVP</a>
+      <a class="nav-link nav-link-featured" href="#about-wedding-intro">About the Wedding</a>
+      <a class="nav-link" href="#places">Travel</a>
+      <a class="nav-link" href="#story">Our Story</a>
+      <a class="nav-link" href="#rsvp">RSVP</a>
     </nav>
   </div>
 </header>
 
-<audio id="bg-audio" loop preload="auto" autoplay playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
+<audio id="bg-audio" loop preload="auto" playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys.mp3">
   <source type="audio/mpeg"/>
 </audio>
 <button id="audio-btn" aria-label="Stop music">■ Stop Music</button>
@@ -1512,13 +1513,12 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 <!-- ════════════════ TRADITIONS ════════════════ -->
 <section id="traditions">
   <div class="section-shell">
-    <div class="guide-hero reveal">
+    <div class="guide-hero reveal" id="about-wedding-intro">
       <div class="guide-copy">
         <p class="section-kicker">About the Wedding</p>
         <h2 class="section-title">A warm little guide to the celebrations</h2>
         <p class="section-copy">If Indian weddings are new to you, this page is here to make everything feel easy, joyful, and welcoming. Think of it as a friendly overview of the rituals, the flow of the week, what to wear, and a few helpful notes so you can settle in, celebrate, and enjoy every part of it.</p>
         <div class="guide-actions">
-          <a class="guide-action primary" href="#traditions-events">See the event lineup</a>
           <a class="guide-action" href="#rsvp">Jump to RSVP</a>
         </div>
       </div>
@@ -2096,6 +2096,38 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 const siteHeader=document.getElementById('site-header');
 const navToggle=document.getElementById('nav-toggle');
 const navLinks=document.getElementById('site-nav-links');
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+const hashAnchorMap={
+  '#traditions':'#about-wedding-intro'
+};
+function normalizeHashTarget(hash){
+  return hashAnchorMap[hash]||hash;
+}
+function scrollToHashTarget(hash,{behavior='smooth'}={}){
+  const resolvedHash=normalizeHashTarget(hash);
+  if(!resolvedHash||resolvedHash==='#')return;
+  const target=document.querySelector(resolvedHash);
+  if(!target)return;
+  const top=target.getBoundingClientRect().top+window.scrollY-112;
+  window.scrollTo({top:Math.max(0,top),behavior});
+}
+function syncHashScroll(hash){
+  const resolvedHash=normalizeHashTarget(hash||window.location.hash);
+  if(!resolvedHash||resolvedHash==='#')return;
+  if(resolvedHash!==window.location.hash)history.replaceState(null,'',resolvedHash);
+  window.scrollTo({top:0,behavior:'auto'});
+  requestAnimationFrame(()=>{
+    scrollToHashTarget(resolvedHash,{behavior:'auto'});
+    requestAnimationFrame(()=>scrollToHashTarget(resolvedHash,{behavior:'auto'}));
+  });
+  window.setTimeout(()=>scrollToHashTarget(resolvedHash,{behavior:'auto'}),140);
+}
+function scheduleInitialHashSync(){
+  if(!window.location.hash)return;
+  [0,160,420].forEach(delay=>{
+    window.setTimeout(()=>syncHashScroll(window.location.hash),delay);
+  });
+}
 function closeMenu(){
   siteHeader.classList.remove('menu-open');
   document.body.classList.remove('nav-open');
@@ -2107,7 +2139,18 @@ if(navToggle&&siteHeader&&navLinks){
     document.body.classList.toggle('nav-open',isOpen);
     navToggle.setAttribute('aria-expanded',String(isOpen));
   });
-  navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{
+    const href=link.getAttribute('href')||'';
+    if(href.startsWith('#')){
+      event.preventDefault();
+      closeMenu();
+      const resolvedHash=normalizeHashTarget(href);
+      history.replaceState(null,'',resolvedHash);
+      scrollToHashTarget(resolvedHash);
+      return;
+    }
+    closeMenu();
+  }));
   window.addEventListener('resize',()=>{
     if(window.innerWidth>640)closeMenu();
   });
@@ -2115,6 +2158,13 @@ if(navToggle&&siteHeader&&navLinks){
     if(event.key==='Escape')closeMenu();
   });
 }
+if(document.readyState==='complete')scheduleInitialHashSync();
+else{
+  document.addEventListener('DOMContentLoaded',scheduleInitialHashSync,{once:true});
+  window.addEventListener('load',scheduleInitialHashSync,{once:true});
+  window.addEventListener('pageshow',scheduleInitialHashSync,{once:true});
+}
+window.addEventListener('hashchange',()=>syncHashScroll(window.location.hash));
 
 // ── Particles
 (function(){
@@ -2311,16 +2361,24 @@ const audioModalSkip=document.getElementById('audio-modal-skip');
 let on=false;
 let userStopped=false;
 let autoplayBlocked=false;
-const compactAudioUI=window.matchMedia('(max-width: 820px), (hover: none), (pointer: coarse)').matches;
+let audioPromptOpen=false;
 const audioSource=au.dataset.src?encodeURI(au.dataset.src):'';
 const sourceEl=au.querySelector('source');
 if(audioSource&&sourceEl){
   sourceEl.src=audioSource;
   au.load();
 }
+function openAudioModal(){
+  audioPromptOpen=true;
+  updateAudioModal();
+}
+function closeAudioModal(){
+  audioPromptOpen=false;
+  updateAudioModal();
+}
 function updateAudioModal(){
   if(!audioModal)return;
-  const shouldShow=compactAudioUI&&autoplayBlocked&&!on&&!userStopped;
+  const shouldShow=audioPromptOpen&&!on;
   audioModal.classList.toggle('show',shouldShow);
   audioModal.setAttribute('aria-hidden',shouldShow?'false':'true');
 }
@@ -2345,11 +2403,13 @@ async function startAudio({auto=false}={}){
     await au.play();
     on=true;
     autoplayBlocked=false;
+    closeAudioModal();
     updateAudioButton();
     return true;
   }catch(err){
     on=false;
-    autoplayBlocked=true;
+    autoplayBlocked=auto;
+    if(!auto)openAudioModal();
     updateAudioButton();
     return false;
   }
@@ -2372,7 +2432,7 @@ async function setupAudio(){
     if(response.ok){
       btn.style.display='inline-flex';
       updateAudioButton();
-      await startAudio({auto:true});
+      openAudioModal();
     }
   }catch(err){
     btn.style.display='none';
@@ -2402,14 +2462,14 @@ if(audioModalStart){
 if(audioModalSkip){
   audioModalSkip.addEventListener('click',()=>{
     autoplayBlocked=false;
-    updateAudioModal();
+    closeAudioModal();
   });
 }
 if(audioModal){
   audioModal.addEventListener('click',event=>{
     if(event.target===audioModal){
       autoplayBlocked=false;
-      updateAudioModal();
+      closeAudioModal();
     }
   });
 }
