@@ -36,13 +36,14 @@
   --hero-bg:url('images/pc-background.png');
   --hero-focus-y:50%;
   --hero-shift:0px;
+  --anchor-offset:5.8rem;
   --display:'Bodoni Moda',Didot,'Bodoni 72',serif;
   --editorial:'Fraunces',Georgia,serif;
   --fs:'Manrope',system-ui,sans-serif;
 }
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:5.8rem;
+  scroll-padding-top:var(--anchor-offset);
 }
 body{
   background:
@@ -397,7 +398,7 @@ body.is-ready .hero-animate{
 #story,
 #trip-guide,
 #rsvp{
-  scroll-margin-top:clamp(1rem,3vw,2rem);
+  scroll-margin-top:0;
 }
 .section-eyebrow{
   font-family:var(--fs);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
@@ -448,7 +449,7 @@ body.is-ready .hero-animate{
 .guide-hero{
   max-width:760px;margin:0 auto 1.7rem;text-align:center;
 }
-#about-wedding-intro{scroll-margin-top:6.9rem}
+#about-wedding-intro{scroll-margin-top:0}
 .guide-copy .section-title{
   margin-top:1rem;
   max-width:8.8em;
@@ -526,7 +527,7 @@ body.is-ready .hero-animate{
   display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mehendi);margin-bottom:.35rem;
 }
 .ritual-copy{font-size:.79rem;color:var(--muted);line-height:1.72}
-#traditions-events{scroll-margin-top:7rem}
+#traditions-events{scroll-margin-top:0}
 
 /* ─── ROUTE / PLACES ─── */
 #places{padding:5.25rem 1.5rem 4.5rem;background:linear-gradient(180deg,rgba(255,253,248,0),rgba(255,216,106,.16),rgba(255,253,248,0))}
@@ -1649,13 +1650,13 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 </section>
 
-<!-- ════════════════ CANADA TO DELHI ════════════════ -->
+<!-- ════════════════ HOW TO GET TO DELHI ════════════════ -->
 <section id="places">
   <div class="places-inner">
     <div class="places-heading reveal">
-      <p class="section-eyebrow">Canada to Delhi</p>
+      <p class="section-eyebrow">How to get to Delhi</p>
       <h2>Travel and accommodation</h2>
-      <p>For anyone flying in, Aerocity is the easiest base for the wedding week: close to the airport, well connected, and simple for getting around Delhi between events.</p>
+      <p>Whether you are coming from Toronto or somewhere else, Aerocity is the easiest base for the wedding week: close to the airport, well connected, and simple for getting around Delhi between events.</p>
     </div>
 
     <div class="route-panel reveal">
@@ -1672,7 +1673,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <g transform="translate(170 202)">
           <circle r="55" fill="rgba(198,40,61,.1)"/>
           <path d="M0,-44 L7,-17 L28,-26 L17,-5 L42,0 L17,5 L28,26 L7,17 L0,44 L-7,17 L-28,26 L-17,5 L-42,0 L-17,-5 L-28,-26 L-7,-17 Z" fill="#c6283d" opacity=".82"/>
-          <text x="0" y="82" text-anchor="middle" font-family="Manrope,sans-serif" font-size="15" letter-spacing="2" fill="#7b5d50">CANADA</text>
+          <text x="0" y="82" text-anchor="middle" font-family="Manrope,sans-serif" font-size="15" letter-spacing="2" fill="#7b5d50">TORONTO</text>
         </g>
         <g transform="translate(540 100) rotate(5)">
           <path d="M-18 -9 L38 0 L-18 9 L-10 0 Z" fill="#b98522"/>
@@ -1707,9 +1708,9 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
     <div class="travel-layout">
       <article class="travel-card reveal">
-        <h3>Getting around</h3>
-        <strong>Easy ways to move around Delhi</strong>
-        <p>If you are keeping it simple, Aerocity is a very convenient place to stay. If you are flying into Delhi, IGI Terminal 3 is the main international arrival point and the easiest anchor for planning the rest of the wedding week.</p>
+        <h3>Arriving in Delhi</h3>
+        <strong>Easy ways to get from the airport to the wedding week</strong>
+        <p>If you are keeping it simple, Aerocity is a very convenient place to stay. Most international guests arrive through IGI Terminal 3, but the same airport transport options are useful no matter where your trip starts.</p>
         <div class="travel-list">
           <div class="travel-item">
             <span class="travel-item-title">Airport Express Metro</span>
@@ -2103,13 +2104,35 @@ const hashAnchorMap={
 function normalizeHashTarget(hash){
   return hashAnchorMap[hash]||hash;
 }
+function getAnchorOffset(){
+  if(!siteHeader)return 0;
+  const headerBottom=siteHeader.getBoundingClientRect().bottom;
+  return Math.ceil(headerBottom+12);
+}
+function updateAnchorOffset(){
+  document.documentElement.style.setProperty('--anchor-offset',`${getAnchorOffset()}px`);
+}
 function scrollToHashTarget(hash,{behavior='smooth'}={}){
   const resolvedHash=normalizeHashTarget(hash);
   if(!resolvedHash||resolvedHash==='#')return;
   const target=document.querySelector(resolvedHash);
   if(!target)return;
-  const top=target.getBoundingClientRect().top+window.scrollY-112;
+  updateAnchorOffset();
+  const top=target.getBoundingClientRect().top+window.scrollY-getAnchorOffset();
   window.scrollTo({top:Math.max(0,top),behavior});
+}
+function handleHashLinkClick(event){
+  if(event.defaultPrevented)return;
+  const link=event.target.closest('a[href^="#"]');
+  if(!link)return;
+  const href=link.getAttribute('href')||'';
+  if(!href||href==='#')return;
+  const resolvedHash=normalizeHashTarget(href);
+  if(!document.querySelector(resolvedHash))return;
+  event.preventDefault();
+  closeMenu();
+  history.replaceState(null,'',resolvedHash);
+  scrollToHashTarget(resolvedHash);
 }
 function syncHashScroll(hash){
   const resolvedHash=normalizeHashTarget(hash||window.location.hash);
@@ -2141,23 +2164,18 @@ if(navToggle&&siteHeader&&navLinks){
   });
   navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{
     const href=link.getAttribute('href')||'';
-    if(href.startsWith('#')){
-      event.preventDefault();
-      closeMenu();
-      const resolvedHash=normalizeHashTarget(href);
-      history.replaceState(null,'',resolvedHash);
-      scrollToHashTarget(resolvedHash);
-      return;
-    }
-    closeMenu();
+    if(!href.startsWith('#'))closeMenu();
   }));
   window.addEventListener('resize',()=>{
+    updateAnchorOffset();
     if(window.innerWidth>640)closeMenu();
   });
   window.addEventListener('keydown',event=>{
     if(event.key==='Escape')closeMenu();
   });
 }
+document.addEventListener('click',handleHashLinkClick,true);
+updateAnchorOffset();
 if(document.readyState==='complete')scheduleInitialHashSync();
 else{
   document.addEventListener('DOMContentLoaded',scheduleInitialHashSync,{once:true});
