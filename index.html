@@ -628,6 +628,8 @@ body.is-ready .hero-animate{
   .ritual-grid{grid-template-columns:1fr}
   .hotel-grid{grid-template-columns:1fr}
   .hotel-card:last-child{grid-column:auto}
+  .faq-grid,
+  .contact-grid{grid-template-columns:1fr}
   .hero-actions{gap:.55rem}
   .action-btn{width:min(100%,280px)}
   .guide-action{width:min(100%,280px)}
@@ -652,7 +654,7 @@ body.is-ready .hero-animate{
 }
 .bridge-map svg{display:none}
 .bridge-map::before{
-  content:'Canada is home. Delhi is family. Everyone together.';
+  content:'Toronto is home. Delhi is family. Everyone together.';
   font-family:var(--editorial);font-size:clamp(1.2rem,3vw,1.8rem);color:var(--ink);
 }
 .bridge-map::after{
@@ -778,6 +780,82 @@ body.is-ready .hero-animate{
 }
 .trip-link-copy{
   display:block;font-size:.76rem;line-height:1.62;color:var(--muted);
+}
+
+/* ─── FAQ / CONTACT ─── */
+#faq{
+  padding:4.5rem 1.5rem 4rem;
+  background:linear-gradient(180deg,rgba(255,253,248,.12),rgba(255,248,244,.36),rgba(255,253,248,.16));
+  border-top:1px solid rgba(199,154,99,.14);
+}
+.faq-inner,
+.contact-inner{
+  max-width:1080px;margin:0 auto;
+}
+.faq-heading,
+.contact-heading{
+  max-width:680px;margin:0 auto 2.2rem;text-align:center;
+}
+.faq-heading h2,
+.contact-heading h2{
+  font-family:var(--editorial);font-weight:430;font-style:normal;font-variation-settings:"SOFT" 55;
+  font-size:clamp(2rem,4.8vw,3.25rem);line-height:1.04;color:var(--ink);margin-bottom:.75rem;
+}
+.faq-heading p,
+.contact-heading p{
+  color:var(--muted);font-size:.9rem;line-height:1.78;
+}
+.faq-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;
+}
+.faq-item{
+  border:1px solid rgba(199,154,99,.2);border-radius:8px;
+  background:rgba(255,251,247,.78);box-shadow:0 14px 34px rgba(145,110,90,.055);
+  overflow:hidden;
+}
+.faq-item summary{
+  list-style:none;cursor:pointer;padding:1rem 1.05rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  font-family:var(--editorial);font-size:1.05rem;font-weight:450;color:var(--ink);
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:'+';width:28px;height:28px;border-radius:999px;display:grid;place-items:center;flex-shrink:0;
+  border:1px solid rgba(199,154,99,.22);color:var(--vermilion);font-family:var(--fs);font-size:.9rem;
+  background:rgba(255,253,248,.74);
+}
+.faq-item[open] summary::after{content:'-'}
+.faq-item p{
+  padding:0 1.05rem 1rem;color:var(--muted);font-size:.8rem;line-height:1.72;
+}
+#contact{
+  padding:3.8rem 1.5rem 4.5rem;
+  background:linear-gradient(180deg,rgba(255,253,248,.18),rgba(255,216,106,.14),rgba(246,210,214,.12));
+  border-top:1px solid rgba(199,154,99,.14);
+}
+.contact-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:760px;margin:0 auto;
+}
+.contact-card{
+  display:block;text-decoration:none;text-align:center;padding:1.25rem 1rem;border-radius:8px;
+  border:1px solid rgba(199,154,99,.22);background:rgba(255,251,247,.8);
+  box-shadow:0 14px 34px rgba(145,110,90,.055);transition:transform .25s var(--ease-smooth),border-color .25s var(--ease-smooth),box-shadow .25s var(--ease-smooth);
+}
+.contact-card:hover,
+.contact-card:focus-visible{
+  transform:translateY(-2px);border-color:rgba(157,93,99,.36);box-shadow:0 18px 38px rgba(157,93,99,.1);outline:none;
+}
+.contact-name{
+  display:block;font-family:var(--editorial);font-size:1.35rem;font-weight:450;color:var(--ink);margin-bottom:.35rem;
+}
+.contact-phone{
+  display:block;color:var(--vermilion);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+}
+@media(max-width:680px){
+  .faq-grid,
+  .contact-grid{grid-template-columns:1fr}
+  #faq,
+  #contact{padding-left:1rem;padding-right:1rem}
 }
 
 /* ─── RSVP ─── */
@@ -1418,7 +1496,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
   <p class="hero-date hero-animate" style="--hero-delay:.4s">31st January · 2027</p>
   <p class="hero-venue hero-animate" style="--hero-delay:.48s">New Delhi, India</p>
-  <p class="hero-venue hero-animate" style="--hero-delay:.56s">Our everyday is in Canada, but our hearts are throwing the party in Delhi.</p>
+  <p class="hero-venue hero-animate" style="--hero-delay:.56s">Our everyday is in Toronto, but our hearts are throwing the party in Delhi.</p>
   <div class="hero-rule hero-animate" style="--hero-delay:.62s"></div>
   <div class="hero-actions hero-animate" style="--hero-delay:.7s" aria-label="Wedding actions">
     <button class="action-btn primary" id="calendar-btn" type="button">Save the date</button>
@@ -1836,9 +1914,9 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <rect x="10" y="0" width="4" height="8" fill="#C94070" opacity=".6"/>
         </svg>
       </div>
-      <div class="story-card-year">Canada</div>
+      <div class="story-card-year">Toronto</div>
       <div class="story-card-title">Where home is</div>
-      <div class="story-card-body">Canada is home: cold mornings, familiar routines, shared plans, and the life we’re building together.</div>
+      <div class="story-card-body">Toronto is home: cold mornings, familiar routines, shared plans, and the life we’re building together.</div>
     </div>
 
     <div class="story-card reveal">
@@ -1850,7 +1928,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       </div>
       <div class="story-card-year">Us</div>
       <div class="story-card-title">Somehow, both</div>
-      <div class="story-card-body">Our life has both: Canada as home, Delhi in our roots, familiar traditions, and new ones we’re making as we go.</div>
+      <div class="story-card-body">Our life has both: Toronto as home, Delhi in our roots, familiar traditions, and new ones we’re making as we go.</div>
     </div>
 
     <div class="story-card reveal" style="border-color:rgba(185,133,34,.4);background:rgba(255,216,106,.16)">
@@ -2029,6 +2107,44 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 </section>
 
+<!-- ════════════════ FAQ ════════════════ -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="faq-heading reveal">
+      <p class="trip-note">Helpful notes</p>
+      <h2>Wedding FAQ</h2>
+      <p>A few quick answers for guests who are new to Indian weddings, travelling in, or wondering what to expect.</p>
+    </div>
+
+    <div class="faq-grid">
+      <details class="faq-item reveal">
+        <summary>What should I wear?</summary>
+        <p>Festive Indian or formal western attire is welcome. Bright colors, embroidery, and dressy outfits are completely at home at Indian weddings. Comfort matters too, especially for longer events.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Are there colors to avoid?</summary>
+        <p>There is no strict rule for guests, but if you are unsure, avoid outfits that feel very bridal. Black, white, pastels, jewel tones, and bright festive colors are all fine.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>How long are the ceremonies?</summary>
+        <p>Some rituals are short and social; the wedding ceremony itself can be longer. You can expect a mix of seated moments, family rituals, food, music, and plenty of mingling.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Do I need to understand every ritual?</summary>
+        <p>Not at all. Come with curiosity and enjoy the flow. Family and friends will happily explain what is happening, and the most important thing is simply being present.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Will the food be spicy?</summary>
+        <p>There will usually be a range of food, including milder options. If you have allergies or dietary needs, please let us know so we can help you plan comfortably.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Should I bring a gift?</summary>
+        <p>Your presence is the gift we care about most. If you would still like to bring something, a card or simple blessing is more than enough.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════ RSVP ════════════════ -->
 <div class="lotus-divider reveal">
   <hr/>
@@ -2058,6 +2174,26 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </form>
   <p class="rsvp-confirm" id="rsvp-done"></p>
   <button class="rsvp-secondary" id="rsvp-edit" type="button">Edit response</button>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-heading reveal">
+      <p class="trip-note">Need help?</p>
+      <h2>Contact us</h2>
+      <p>If you have questions about travel, events, outfits, or anything else, reach out anytime.</p>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="tel:+17828821169">
+        <span class="contact-name">Akshay</span>
+        <span class="contact-phone">+1-782-882-1169</span>
+      </a>
+      <a class="contact-card reveal" href="tel:+16477196339">
+        <span class="contact-name">Amrita</span>
+        <span class="contact-phone">+1-647-719-6339</span>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- ════════════════ FOOTER ════════════════ -->
@@ -2316,7 +2452,7 @@ const obs=new IntersectionObserver(es=>es.forEach(e=>{
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const staggerGroups=['.timeline','.ritual-grid','.travel-layout','.hotel-grid','.story-grid','.trip-grid','.trip-links'];
+const staggerGroups=['.timeline','.ritual-grid','.travel-layout','.hotel-grid','.story-grid','.trip-grid','.trip-links','.faq-grid','.contact-grid'];
 staggerGroups.forEach(selector=>{
   document.querySelectorAll(selector).forEach(group=>{
     [...group.children]
