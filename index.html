@@ -109,7 +109,7 @@ body.nav-open{overflow:hidden}
 
 /* ─── AUDIO ─── */
 #audio-btn{
-  display:none;position:fixed;top:6rem;right:1.4rem;z-index:200;
+  display:none;position:fixed;right:1.35rem;bottom:1.35rem;z-index:200;
   background:rgba(255,253,248,0.9);backdrop-filter:blur(10px);
   border:1px solid var(--line);color:var(--vermilion);
   font-family:var(--fs);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
@@ -446,19 +446,22 @@ body.is-ready .hero-animate{
 .traditions-intro .section-title{margin-top:1rem}
 .traditions-intro .section-copy{margin-top:1rem}
 .guide-hero{
-  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(300px,.94fr);gap:1.15rem;align-items:center;
-  margin-bottom:1.65rem;
+  max-width:760px;margin:0 auto 1.7rem;text-align:center;
 }
 .guide-copy .section-title{
   margin-top:1rem;
   max-width:8.8em;
+  margin-left:auto;
+  margin-right:auto;
 }
 .guide-copy .section-copy{
   margin-top:1rem;
   max-width:40rem;
+  margin-left:auto;
+  margin-right:auto;
 }
 .guide-actions{
-  display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.35rem;
+  display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:1.35rem;
 }
 .guide-action{
   display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1.15rem;border-radius:999px;
@@ -472,36 +475,6 @@ body.is-ready .hero-animate{
 }
 .guide-action:hover{
   transform:translateY(-2px);border-color:rgba(157,93,99,.5);box-shadow:0 16px 30px rgba(157,93,99,.12);
-}
-.guide-panel{
-  position:relative;padding:1.3rem;border-radius:10px;border:1px solid rgba(199,154,99,.2);
-  background:linear-gradient(180deg,rgba(255,253,248,.92),rgba(255,247,240,.88));
-  box-shadow:0 20px 48px rgba(122,74,18,.06);
-  overflow:hidden;
-}
-.guide-panel::before{
-  content:'';position:absolute;left:1.1rem;right:1.1rem;top:0;height:2px;
-  background:linear-gradient(90deg,var(--rose),var(--gold2),var(--mehendi));opacity:.6;
-}
-.guide-panel-title{
-  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vermilion);margin-bottom:.82rem;
-}
-.guide-points{display:grid;gap:.8rem}
-.guide-point{
-  display:grid;grid-template-columns:46px minmax(0,1fr);gap:.8rem;align-items:start;
-  padding:.9rem;border-radius:10px;background:rgba(255,251,247,.72);border:1px solid rgba(199,154,99,.16);
-}
-.guide-point-icon{
-  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
-  background:linear-gradient(135deg,rgba(239,208,160,.34),rgba(246,210,214,.28));
-  color:var(--vermilion);
-}
-.guide-point-icon svg{width:28px;height:28px}
-.guide-point strong{
-  display:block;font-size:.84rem;font-weight:600;color:var(--ink);margin-bottom:.16rem;
-}
-.guide-point span{
-  display:block;font-size:.76rem;line-height:1.62;color:var(--muted);
 }
 .traditions-subhead{
   max-width:700px;margin:0 auto 1.2rem;text-align:center;
@@ -552,6 +525,7 @@ body.is-ready .hero-animate{
   display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mehendi);margin-bottom:.35rem;
 }
 .ritual-copy{font-size:.79rem;color:var(--muted);line-height:1.72}
+#traditions-events{scroll-margin-top:7rem}
 
 /* ─── ROUTE / PLACES ─── */
 #places{padding:5.25rem 1.5rem 4.5rem;background:linear-gradient(180deg,rgba(255,253,248,0),rgba(255,216,106,.16),rgba(255,253,248,0))}
@@ -642,7 +616,6 @@ body.is-ready .hero-animate{
 }
 @media(max-width:820px){
   #traditions{padding-top:4.5rem}
-  .guide-hero{grid-template-columns:1fr}
 }
 @media(max-width:760px){
   .side-toran{display:none}
@@ -1065,10 +1038,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     font-size:.54rem;
     gap:.32rem;
   }
-  #audio-btn{
-    top:5.2rem;
-    right:1rem;
-  }
+  #audio-btn{right:1rem;bottom:1rem}
   .audio-modal-card{padding:1.2rem 1rem 1rem}
   .audio-modal-actions{gap:.55rem}
   .audio-modal-btn{width:min(100%,280px)}
@@ -1087,8 +1057,17 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     margin:0 auto;
   }
   .cd-sep{display:none}
-  .cd-num{font-size:clamp(2.9rem,16vw,4.2rem)}
-  .cd-label{font-size:.56rem;letter-spacing:.18em}
+  .cd-num{
+    font-family:var(--editorial);
+    font-size:clamp(2.4rem,13vw,3.4rem);
+    font-weight:560;
+    line-height:.92;
+  }
+  .cd-label{
+    font-size:.6rem;
+    letter-spacing:.16em;
+    margin-top:.38rem;
+  }
   #traditions,#places,#story,#trip-guide,#rsvp{
     padding-left:1rem;
     padding-right:1rem;
@@ -1543,47 +1522,6 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <a class="guide-action" href="#rsvp">Jump to RSVP</a>
         </div>
       </div>
-      <aside class="guide-panel">
-        <div class="guide-panel-title">What this page covers</div>
-        <div class="guide-points">
-          <div class="guide-point">
-            <div class="guide-point-icon" aria-hidden="true">
-              <svg viewBox="0 0 28 28" fill="none">
-                <path d="M6 8h16M6 14h16M6 20h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                <rect x="4.7" y="5" width="18.6" height="18" rx="4" stroke="currentColor" stroke-width="1.2"/>
-              </svg>
-            </div>
-            <div>
-              <strong>The flow of the week</strong>
-              <span>A quick look at how each celebration unfolds, from the engagement evening through the wedding ceremony.</span>
-            </div>
-          </div>
-          <div class="guide-point">
-            <div class="guide-point-icon" aria-hidden="true">
-              <svg viewBox="0 0 28 28" fill="none">
-                <path d="M9 8 L14 4 L19 8 L17.5 20 H10.5 Z" stroke="currentColor" stroke-width="1.2" fill="rgba(157,93,99,.08)"/>
-                <path d="M8 23 H20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <strong>What to wear</strong>
-              <span>No need to overthink it. Festive, comfortable clothing is perfect, and we can share any event-specific outfit notes closer to the celebrations.</span>
-            </div>
-          </div>
-          <div class="guide-point">
-            <div class="guide-point-icon" aria-hidden="true">
-              <svg viewBox="0 0 28 28" fill="none">
-                <path d="M14 5 C11 10 9 13 9 16.5 C9 20 11.3 22.5 14 22.5 C16.7 22.5 19 20 19 16.5 C19 13 17 10 14 5Z" fill="rgba(239,208,160,.52)" stroke="currentColor" stroke-width="1.1"/>
-                <path d="M8 23 H20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <strong>Meaning and etiquette</strong>
-              <span>A gentle explainer for the symbolism behind each ritual and a few easy tips for joining in comfortably.</span>
-            </div>
-          </div>
-        </div>
-      </aside>
     </div>
 
     <div class="traditions-subhead reveal">
@@ -1616,6 +1554,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <strong>Why it matters</strong>
           <p class="ritual-copy">This event is about both commitment and joy. The engagement honors the coming together of two families, and the sangeet celebrates that union in the most lively, expressive way possible.</p>
         </div>
+        <div class="ritual-copy-block">
+          <strong>What to wear</strong>
+          <p class="ritual-copy">Festive outfits that feel easy to move in are perfect here. If you are unsure, just aim for celebratory and comfortable.</p>
+        </div>
       </article>
 
       <article class="ritual-card reveal">
@@ -1641,6 +1583,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <strong>Why it matters</strong>
           <p class="ritual-copy">Mehendi is associated with happiness, beauty, and good fortune. It carries a celebratory feeling, but it also gently marks the transition into the wedding ceremonies ahead.</p>
         </div>
+        <div class="ritual-copy-block">
+          <strong>What to wear</strong>
+          <p class="ritual-copy">Colorful, relaxed festive clothing works beautifully. Choose something comfortable enough to sit, mingle, and maybe get a little henna on.</p>
+        </div>
       </article>
 
       <article class="ritual-card reveal">
@@ -1664,6 +1610,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <div class="ritual-copy-block">
           <strong>Why it matters</strong>
           <p class="ritual-copy">Turmeric is tied to purification, blessing, and prosperity. The ritual is meant to prepare the couple for marriage while surrounding them with love, good wishes, and community.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>What to wear</strong>
+          <p class="ritual-copy">Light, easy clothing in yellow or soft tones is ideal. It is best to wear something you would not mind getting a little messy.</p>
         </div>
       </article>
 
@@ -1689,6 +1639,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
         <div class="ritual-copy-block">
           <strong>Why it matters</strong>
           <p class="ritual-copy">This is the most symbolic part of the week. It is about commitment, blessing, and the spiritual meaning of marriage, all held in the presence of family and community.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>What to wear</strong>
+          <p class="ritual-copy">This is the dressiest event of the week, so traditional or formal attire is a lovely choice. Elegant and comfortable is more than enough.</p>
         </div>
       </article>
     </div>
