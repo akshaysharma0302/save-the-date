@@ -445,38 +445,69 @@ body.is-ready .hero-animate{
 }
 .traditions-intro .section-title{margin-top:1rem}
 .traditions-intro .section-copy{margin-top:1rem}
-.timeline{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-bottom:1.2rem;
+.guide-hero{
+  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(300px,.94fr);gap:1.15rem;align-items:center;
+  margin-bottom:1.65rem;
 }
-.timeline-card{
-  min-height:100%;padding:1.15rem;border-radius:10px;border:1px solid rgba(199,154,99,.2);
-  background:linear-gradient(180deg,rgba(255,253,248,.92),rgba(255,248,239,.84));
-  box-shadow:0 18px 44px rgba(122,74,18,.05);
-  position:relative;overflow:hidden;
+.guide-copy .section-title{
+  margin-top:1rem;
+  max-width:8.8em;
 }
-.timeline-card::before{
-  content:'';position:absolute;left:1.05rem;right:1.05rem;top:0;height:2px;
-  background:linear-gradient(90deg,var(--rose),var(--gold2),var(--mehendi));opacity:.58;
+.guide-copy .section-copy{
+  margin-top:1rem;
+  max-width:40rem;
 }
-.timeline-step{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:32px;height:32px;border-radius:999px;margin-bottom:.8rem;
-  background:rgba(157,93,99,.12);color:var(--vermilion);font-size:.68rem;font-weight:700;
+.guide-actions{
+  display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.35rem;
 }
-.timeline-title{
-  font-family:var(--editorial);font-size:1.2rem;font-weight:450;color:var(--ink);margin-bottom:.34rem;
+.guide-action{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.8rem 1.15rem;border-radius:999px;
+  border:1px solid rgba(214,182,150,.5);text-decoration:none;font-size:.65rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  background:rgba(255,250,246,.86);color:#6d514a;box-shadow:0 10px 24px rgba(157,93,99,.08);
+  transition:transform .25s var(--ease-smooth),border-color .25s var(--ease-smooth),box-shadow .25s var(--ease-smooth);
 }
-.timeline-date{
-  display:inline-flex;align-items:center;min-height:28px;padding:.32rem .72rem;margin-bottom:.7rem;
-  border-radius:999px;border:1px solid rgba(199,154,99,.26);background:rgba(255,251,247,.82);
-  color:var(--vermilion);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;
+.guide-action.primary{
+  background:linear-gradient(135deg,#bf7d84,#9d5d63);
+  border-color:rgba(157,93,99,.72);color:#fffaf6;
 }
-.timeline-copy{font-size:.77rem;line-height:1.68;color:var(--muted)}
+.guide-action:hover{
+  transform:translateY(-2px);border-color:rgba(157,93,99,.5);box-shadow:0 16px 30px rgba(157,93,99,.12);
+}
+.guide-panel{
+  position:relative;padding:1.3rem;border-radius:10px;border:1px solid rgba(199,154,99,.2);
+  background:linear-gradient(180deg,rgba(255,253,248,.92),rgba(255,247,240,.88));
+  box-shadow:0 20px 48px rgba(122,74,18,.06);
+  overflow:hidden;
+}
+.guide-panel::before{
+  content:'';position:absolute;left:1.1rem;right:1.1rem;top:0;height:2px;
+  background:linear-gradient(90deg,var(--rose),var(--gold2),var(--mehendi));opacity:.6;
+}
+.guide-panel-title{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vermilion);margin-bottom:.82rem;
+}
+.guide-points{display:grid;gap:.8rem}
+.guide-point{
+  display:grid;grid-template-columns:46px minmax(0,1fr);gap:.8rem;align-items:start;
+  padding:.9rem;border-radius:10px;background:rgba(255,251,247,.72);border:1px solid rgba(199,154,99,.16);
+}
+.guide-point-icon{
+  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(239,208,160,.34),rgba(246,210,214,.28));
+  color:var(--vermilion);
+}
+.guide-point-icon svg{width:28px;height:28px}
+.guide-point strong{
+  display:block;font-size:.84rem;font-weight:600;color:var(--ink);margin-bottom:.16rem;
+}
+.guide-point span{
+  display:block;font-size:.76rem;line-height:1.62;color:var(--muted);
+}
 .traditions-subhead{
-  max-width:700px;margin:0 auto 1.35rem;text-align:center;
+  max-width:700px;margin:0 auto 1.2rem;text-align:center;
 }
 .traditions-subhead h3{
-  font-family:var(--editorial);font-size:clamp(1.7rem,4vw,2.5rem);font-weight:450;color:var(--ink);margin-bottom:.55rem;
+  font-family:var(--editorial);font-size:clamp(1.45rem,3.2vw,2rem);font-weight:450;color:var(--ink);margin-bottom:.35rem;
 }
 .ritual-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:1rem;
@@ -521,6 +552,24 @@ body.is-ready .hero-animate{
   display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mehendi);margin-bottom:.35rem;
 }
 .ritual-copy{font-size:.79rem;color:var(--muted);line-height:1.72}
+.attire-section{margin-top:1.25rem}
+.attire-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.attire-card{
+  padding:1.15rem;border-radius:10px;border:1px solid rgba(199,154,99,.18);
+  background:linear-gradient(180deg,rgba(255,253,248,.92),rgba(255,248,239,.84));
+  box-shadow:0 16px 40px rgba(145,110,90,.05);
+}
+.attire-title{
+  font-family:var(--editorial);font-size:1.18rem;font-weight:450;color:var(--ink);margin-bottom:.35rem;
+}
+.attire-meta{
+  display:block;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--vermilion);margin-bottom:.68rem;
+}
+.attire-copy{
+  font-size:.77rem;line-height:1.7;color:var(--muted);
+}
 
 /* ─── ROUTE / PLACES ─── */
 #places{padding:5.25rem 1.5rem 4.5rem;background:linear-gradient(180deg,rgba(255,253,248,0),rgba(255,216,106,.16),rgba(255,253,248,0))}
@@ -611,7 +660,7 @@ body.is-ready .hero-animate{
 }
 @media(max-width:820px){
   #traditions{padding-top:4.5rem}
-  .timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .guide-hero{grid-template-columns:1fr}
 }
 @media(max-width:760px){
   .side-toran{display:none}
@@ -620,12 +669,13 @@ body.is-ready .hero-animate{
   .route-panel{padding:.6rem}
 }
 @media(max-width:560px){
-  .timeline,
-  .ritual-grid{grid-template-columns:1fr}
+  .ritual-grid,
+  .attire-grid{grid-template-columns:1fr}
   .hotel-grid{grid-template-columns:1fr}
   .hotel-card:last-child{grid-column:auto}
   .hero-actions{gap:.55rem}
   .action-btn{width:min(100%,280px)}
+  .guide-action{width:min(100%,280px)}
 }
 
 /* ─── STORY ─── */
@@ -1502,42 +1552,62 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 <!-- ════════════════ TRADITIONS ════════════════ -->
 <section id="traditions">
   <div class="section-shell">
-    <div class="traditions-intro reveal">
-      <p class="section-kicker">About the Wedding</p>
-      <h2 class="section-title">What each celebration is, when it happens, and what it means</h2>
-      <p class="section-copy">Indian weddings unfold over a few distinct celebrations, each with its own mood and meaning. Some are lively and playful, some are deeply symbolic, and all of them are about family, blessing, and joy. This guide gives everyone an easy way to understand the flow of the week and what to expect at each function.</p>
-    </div>
-
-    <div class="timeline">
-      <article class="timeline-card reveal">
-        <span class="timeline-step">01</span>
-        <h3 class="timeline-title">Engagement &amp; Sangeet</h3>
-        <span class="timeline-date">26 January 2027</span>
-        <p class="timeline-copy">The week begins with the engagement ceremony, followed by a full evening of music, dancing, performances, and family celebration.</p>
-      </article>
-      <article class="timeline-card reveal">
-        <span class="timeline-step">02</span>
-        <h3 class="timeline-title">Mehendi</h3>
-        <span class="timeline-date">29 January 2027</span>
-        <p class="timeline-copy">A colorful, social event where henna is applied and the wedding energy really starts to settle in.</p>
-      </article>
-      <article class="timeline-card reveal">
-        <span class="timeline-step">03</span>
-        <h3 class="timeline-title">Haldi</h3>
-        <span class="timeline-date">30 January 2027</span>
-        <p class="timeline-copy">A bright and joyful ceremony centered around turmeric, blessings, laughter, and a lot of love from close family and friends.</p>
-      </article>
-      <article class="timeline-card reveal">
-        <span class="timeline-step">04</span>
-        <h3 class="timeline-title">Wedding Ceremony</h3>
-        <span class="timeline-date">31 January 2027</span>
-        <p class="timeline-copy">The sacred heart of the week: prayers, vows, rituals, and the formal beginning of married life together.</p>
-      </article>
+    <div class="guide-hero reveal">
+      <div class="guide-copy">
+        <p class="section-kicker">About the Wedding</p>
+        <h2 class="section-title">A warm little guide to the celebrations</h2>
+        <p class="section-copy">If Indian weddings are new to you, this page is here to make everything feel easy, joyful, and welcoming. Think of it as a friendly overview of the rituals, the flow of the week, what to wear, and a few helpful notes so you can settle in, celebrate, and enjoy every part of it.</p>
+        <div class="guide-actions">
+          <a class="guide-action primary" href="#traditions-events">See the event lineup</a>
+          <a class="guide-action" href="#rsvp">Jump to RSVP</a>
+        </div>
+      </div>
+      <aside class="guide-panel">
+        <div class="guide-panel-title">What this page covers</div>
+        <div class="guide-points">
+          <div class="guide-point">
+            <div class="guide-point-icon" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none">
+                <path d="M6 8h16M6 14h16M6 20h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                <rect x="4.7" y="5" width="18.6" height="18" rx="4" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div>
+              <strong>The flow of the week</strong>
+              <span>A quick look at how each celebration unfolds, from the engagement evening through the wedding ceremony.</span>
+            </div>
+          </div>
+          <div class="guide-point">
+            <div class="guide-point-icon" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none">
+                <path d="M9 8 L14 4 L19 8 L17.5 20 H10.5 Z" stroke="currentColor" stroke-width="1.2" fill="rgba(157,93,99,.08)"/>
+                <path d="M8 23 H20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <strong>What to wear</strong>
+              <span>Simple guidance for dressing comfortably and festively for each event, especially for dancing and long ceremonies.</span>
+            </div>
+          </div>
+          <div class="guide-point">
+            <div class="guide-point-icon" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none">
+                <path d="M14 5 C11 10 9 13 9 16.5 C9 20 11.3 22.5 14 22.5 C16.7 22.5 19 20 19 16.5 C19 13 17 10 14 5Z" fill="rgba(239,208,160,.52)" stroke="currentColor" stroke-width="1.1"/>
+                <path d="M8 23 H20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Meaning and etiquette</strong>
+              <span>A gentle explainer for the symbolism behind each ritual and a few easy tips for joining in comfortably.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <div class="traditions-subhead reveal">
-      <h3>A closer look at each function</h3>
-      <p class="section-copy">Each celebration has its own rhythm. Here is a simple guide to what happens during each event and the meaning behind it.</p>
+      <h3 id="traditions-events">The celebrations, one by one</h3>
+      <p class="section-copy">Dates, what to expect, and the meaning behind each function.</p>
     </div>
 
     <div class="ritual-grid">
@@ -1639,6 +1709,34 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
           <strong>Why it matters</strong>
           <p class="ritual-copy">This is the most symbolic part of the week. It is about commitment, blessing, and the spiritual meaning of marriage, all held in the presence of family and community.</p>
         </div>
+      </article>
+    </div>
+
+    <div class="traditions-subhead attire-section reveal">
+      <h3>What should I wear?</h3>
+      <p class="section-copy">A simple starting point for each function, with comfort in mind.</p>
+    </div>
+
+    <div class="attire-grid">
+      <article class="attire-card reveal">
+        <h4 class="attire-title">Engagement &amp; Sangeet</h4>
+        <span class="attire-meta">Festive and dance-friendly</span>
+        <p class="attire-copy">Think celebratory Indian wear or polished Indo-western looks. Lehengas, sarees, gowns, kurtas, bandhgalas, and sherwanis all fit well here. Comfortable footwear is worth planning for because there will almost certainly be music, standing, and dancing.</p>
+      </article>
+      <article class="attire-card reveal">
+        <h4 class="attire-title">Mehendi</h4>
+        <span class="attire-meta">Bright, colorful, comfortable</span>
+        <p class="attire-copy">This is a great event for playful color and relaxed festive outfits. Flowing suits, sarees, lehengas, kurtas, and light festive sets work especially well. If you plan to get mehendi, avoid very tight sleeves or anything awkward to keep clean while the henna dries.</p>
+      </article>
+      <article class="attire-card reveal">
+        <h4 class="attire-title">Haldi</h4>
+        <span class="attire-meta">Light, easygoing, yellow-friendly</span>
+        <p class="attire-copy">Wear something comfortable in shades of yellow, marigold, cream, or other light tones that you do not mind getting a little touched by turmeric. Easy sandals, flats, and relaxed festive outfits are usually the right call.</p>
+      </article>
+      <article class="attire-card reveal">
+        <h4 class="attire-title">Wedding Ceremony</h4>
+        <span class="attire-meta">Traditional and formal</span>
+        <p class="attire-copy">This is the most formal event of the week, so guests usually dress up the most here. Sarees, lehengas, sherwanis, bandhgalas, elegant suits, and refined formal wear all work well. Breathable fabrics and stable shoes help if the ceremony runs longer.</p>
       </article>
     </div>
   </div>
