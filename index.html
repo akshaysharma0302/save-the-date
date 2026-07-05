@@ -424,53 +424,103 @@ body.is-ready .hero-animate{
 }
 
 /* ─── CELEBRATION DETAILS ─── */
-#traditions{padding:5.5rem 1.5rem 4.75rem}
-.traditions-inner{
-  max-width:1060px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,.82fr) minmax(0,1.35fr);
-  gap:clamp(2rem,5vw,4.5rem);align-items:start;
+#traditions{
+  padding:5.5rem 1.5rem 4.85rem;
+  background:linear-gradient(180deg,rgba(255,249,244,.12),rgba(246,210,214,.08),rgba(255,249,244,0));
 }
-.traditions-heading{text-align:left;margin-bottom:0;position:sticky;top:5rem}
-.traditions-heading h2{
+.section-shell{max-width:1080px;margin:0 auto}
+.section-kicker{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:34px;padding:.42rem .9rem;border-radius:999px;
+  border:1px solid rgba(199,154,99,.24);background:rgba(255,251,247,.7);
+  color:var(--vermilion);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+}
+.section-title{
   font-family:var(--editorial);font-variation-settings:"SOFT" 55;font-weight:430;font-style:normal;
-  font-size:clamp(2.25rem,5vw,4.25rem);line-height:.98;color:var(--ink);
-  max-width:8.5em;
+  font-size:clamp(2.15rem,5vw,4rem);line-height:1.02;color:var(--ink);
 }
-.traditions-heading p{
-  max-width:360px;margin:1.1rem 0 0;color:var(--muted);font-size:.9rem;line-height:1.8;
+.section-copy{color:var(--muted);font-size:.9rem;line-height:1.82}
+.traditions-intro{
+  max-width:760px;margin:0 auto 2.3rem;text-align:center;
+}
+.traditions-intro .section-title{margin-top:1rem}
+.traditions-intro .section-copy{margin-top:1rem}
+.timeline{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-bottom:1.2rem;
+}
+.timeline-card{
+  min-height:100%;padding:1.15rem;border-radius:10px;border:1px solid rgba(199,154,99,.2);
+  background:linear-gradient(180deg,rgba(255,253,248,.92),rgba(255,248,239,.84));
+  box-shadow:0 18px 44px rgba(122,74,18,.05);
+  position:relative;overflow:hidden;
+}
+.timeline-card::before{
+  content:'';position:absolute;left:1.05rem;right:1.05rem;top:0;height:2px;
+  background:linear-gradient(90deg,var(--rose),var(--gold2),var(--mehendi));opacity:.58;
+}
+.timeline-step{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:999px;margin-bottom:.8rem;
+  background:rgba(157,93,99,.12);color:var(--vermilion);font-size:.68rem;font-weight:700;
+}
+.timeline-title{
+  font-family:var(--editorial);font-size:1.2rem;font-weight:450;color:var(--ink);margin-bottom:.34rem;
+}
+.timeline-date{
+  display:inline-flex;align-items:center;min-height:28px;padding:.32rem .72rem;margin-bottom:.7rem;
+  border-radius:999px;border:1px solid rgba(199,154,99,.26);background:rgba(255,251,247,.82);
+  color:var(--vermilion);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;
+}
+.timeline-copy{font-size:.77rem;line-height:1.68;color:var(--muted)}
+.traditions-subhead{
+  max-width:700px;margin:0 auto 1.35rem;text-align:center;
+}
+.traditions-subhead h3{
+  font-family:var(--editorial);font-size:clamp(1.7rem,4vw,2.5rem);font-weight:450;color:var(--ink);margin-bottom:.55rem;
 }
 .ritual-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1.15rem 1.1rem;
-  align-content:start;
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
 }
 .ritual-card{
   --reveal-base-y:0px;
-  min-height:158px;padding:1.35rem;border:1px solid rgba(169,120,34,.2);border-radius:8px;
-  background:
-    linear-gradient(180deg,rgba(255,253,247,.86),rgba(255,249,239,.78));
-  backdrop-filter:blur(8px);
-  box-shadow:0 16px 44px rgba(122,74,18,.04);
+  min-height:100%;padding:1.35rem;border:1px solid rgba(169,120,34,.2);border-radius:10px;
+  background:linear-gradient(180deg,rgba(255,253,247,.92),rgba(255,249,239,.84));
+  box-shadow:0 18px 46px rgba(122,74,18,.05);
   position:relative;overflow:hidden;
 }
-.ritual-card:nth-child(2),.ritual-card:nth-child(4){--reveal-base-y:1.5rem}
 .ritual-card::after{
-  content:'';position:absolute;left:1.35rem;right:1.35rem;top:0;height:2px;
+  content:'';position:absolute;left:1.2rem;right:1.2rem;top:0;height:2px;
   background:linear-gradient(90deg,var(--vermilion),var(--gold),var(--mehendi));
   opacity:.48;
 }
-.ritual-icon{display:none}
-.ritual-icon svg{width:34px;height:34px}
+.ritual-head{
+  display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.95rem;
+}
+.ritual-icon{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(239,208,160,.34),rgba(246,210,214,.26));
+  color:var(--vermilion);
+}
+.ritual-icon svg{width:30px;height:30px}
 .ritual-title{
-  font-family:var(--fs);font-size:.92rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink);margin-bottom:.55rem;
+  font-family:var(--editorial);font-size:1.35rem;font-weight:460;color:var(--ink);margin-bottom:.24rem;
+}
+.ritual-subtitle{
+  display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--vermilion);
 }
 .ritual-date{
-  display:inline-flex;align-items:center;min-height:28px;padding:.3rem .72rem;margin:0 0 .8rem;
-  border-radius:999px;border:1px solid rgba(199,154,99,.26);background:rgba(255,251,247,.78);
-  color:var(--vermilion);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  display:inline-flex;align-items:center;min-height:28px;padding:.32rem .72rem;margin:0 0 .85rem;
+  border-radius:999px;border:1px solid rgba(199,154,99,.26);background:rgba(255,251,247,.82);
+  color:var(--vermilion);font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;
 }
-.ritual-copy{font-size:.83rem;color:var(--muted);line-height:1.75}
+.ritual-copy-block{
+  padding:.88rem .92rem;border-radius:10px;background:rgba(255,251,247,.72);border:1px solid rgba(199,154,99,.16);
+}
+.ritual-copy-block + .ritual-copy-block{margin-top:.75rem}
+.ritual-copy-block strong{
+  display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mehendi);margin-bottom:.35rem;
+}
+.ritual-copy{font-size:.79rem;color:var(--muted);line-height:1.72}
 
 /* ─── ROUTE / PLACES ─── */
 #places{padding:5.25rem 1.5rem 4.5rem;background:linear-gradient(180deg,rgba(255,253,248,0),rgba(255,216,106,.16),rgba(255,253,248,0))}
@@ -561,10 +611,7 @@ body.is-ready .hero-animate{
 }
 @media(max-width:820px){
   #traditions{padding-top:4.5rem}
-  .traditions-inner{display:block}
-  .traditions-heading{text-align:center;position:static;margin-bottom:2.3rem}
-  .traditions-heading h2{max-width:11em;margin:0 auto}
-  .traditions-heading p{margin:1rem auto 0;max-width:560px}
+  .timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
   .side-toran{display:none}
@@ -573,8 +620,8 @@ body.is-ready .hero-animate{
   .route-panel{padding:.6rem}
 }
 @media(max-width:560px){
+  .timeline,
   .ritual-grid{grid-template-columns:1fr}
-  .ritual-card:nth-child(2),.ritual-card:nth-child(4){--reveal-base-y:0px}
   .hotel-grid{grid-template-columns:1fr}
   .hotel-card:last-child{grid-column:auto}
   .hero-actions{gap:.55rem}
@@ -1066,9 +1113,8 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       </svg>
     </button>
     <nav class="nav-links" id="site-nav-links" aria-label="Main navigation">
-      <a class="nav-link" href="index.html#traditions">Events</a>
+      <a class="nav-link nav-link-featured" href="index.html#traditions">About the Wedding</a>
       <a class="nav-link" href="index.html#places">Travel</a>
-      <a class="nav-link nav-link-featured" href="about-wedding.html">About the Wedding</a>
       <a class="nav-link" href="index.html#story">Our Story</a>
       <a class="nav-link" href="index.html#rsvp">RSVP</a>
     </nav>
@@ -1445,8 +1491,8 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
     <rect x="0" y="195" width="1400" height="25" fill="rgba(255,249,239,0.96)"/>
   </svg>
 
-  <a class="scroll-hint hero-animate" style="--hero-delay:.8s" href="#traditions" aria-label="Scroll to wedding celebrations">
-    <span>Scroll</span>
+  <a class="scroll-hint hero-animate" style="--hero-delay:.8s" href="#traditions" aria-label="Scroll to about the wedding">
+    <span>Explore</span>
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
       <path d="M7 2v10M2 7l5 5 5-5" stroke="#D4A017" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -1455,68 +1501,144 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 <!-- ════════════════ TRADITIONS ════════════════ -->
 <section id="traditions">
-  <div class="traditions-inner">
-    <div class="traditions-heading reveal">
-      <p class="section-eyebrow">The wedding week</p>
-      <h2>A few days with all our favourite people</h2>
-      <p>There will be mehendi, haldi, dancing, food, late nights, and probably a few emotional speeches. We can’t wait to have everyone together.</p>
+  <div class="section-shell">
+    <div class="traditions-intro reveal">
+      <p class="section-kicker">About the Wedding</p>
+      <h2 class="section-title">What each celebration is, when it happens, and what it means</h2>
+      <p class="section-copy">Indian weddings unfold over a few distinct celebrations, each with its own mood and meaning. Some are lively and playful, some are deeply symbolic, and all of them are about family, blessing, and joy. This guide gives everyone an easy way to understand the flow of the week and what to expect at each function.</p>
+    </div>
+
+    <div class="timeline">
+      <article class="timeline-card reveal">
+        <span class="timeline-step">01</span>
+        <h3 class="timeline-title">Engagement &amp; Sangeet</h3>
+        <span class="timeline-date">26 January 2027</span>
+        <p class="timeline-copy">The week begins with the engagement ceremony, followed by a full evening of music, dancing, performances, and family celebration.</p>
+      </article>
+      <article class="timeline-card reveal">
+        <span class="timeline-step">02</span>
+        <h3 class="timeline-title">Mehendi</h3>
+        <span class="timeline-date">29 January 2027</span>
+        <p class="timeline-copy">A colorful, social event where henna is applied and the wedding energy really starts to settle in.</p>
+      </article>
+      <article class="timeline-card reveal">
+        <span class="timeline-step">03</span>
+        <h3 class="timeline-title">Haldi</h3>
+        <span class="timeline-date">30 January 2027</span>
+        <p class="timeline-copy">A bright and joyful ceremony centered around turmeric, blessings, laughter, and a lot of love from close family and friends.</p>
+      </article>
+      <article class="timeline-card reveal">
+        <span class="timeline-step">04</span>
+        <h3 class="timeline-title">Wedding Ceremony</h3>
+        <span class="timeline-date">31 January 2027</span>
+        <p class="timeline-copy">The sacred heart of the week: prayers, vows, rituals, and the formal beginning of married life together.</p>
+      </article>
+    </div>
+
+    <div class="traditions-subhead reveal">
+      <h3>A closer look at each function</h3>
+      <p class="section-copy">Each celebration has its own rhythm. Here is a simple guide to what happens during each event and the meaning behind it.</p>
     </div>
 
     <div class="ritual-grid">
       <article class="ritual-card reveal">
-        <div class="ritual-icon" aria-hidden="true">
-          <svg width="46" height="44" viewBox="0 0 46 44">
-            <path d="M10 31 C15 20 22 14 32 12" fill="none" stroke="#356f4a" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="16" cy="27" r="4" fill="#e7cfa6"/>
-            <circle cx="23" cy="20" r="4" fill="#a95d67" opacity=".88"/>
-            <circle cx="31" cy="15" r="4" fill="#ffd86a" opacity=".78"/>
-            <path d="M12 35 H34" stroke="#b98522" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
+        <div class="ritual-head">
+          <div class="ritual-icon" aria-hidden="true">
+            <svg viewBox="0 0 30 30" fill="none">
+              <path d="M8 22 C11 18 14 15 21 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="10" cy="21" r="3.2" fill="rgba(231,207,166,.88)"/>
+              <circle cx="16" cy="16" r="3.2" fill="rgba(157,93,99,.86)"/>
+              <circle cx="22" cy="11" r="3.2" fill="rgba(239,208,160,.96)"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="ritual-title">Engagement &amp; Sangeet</h3>
+            <span class="ritual-subtitle">The official beginning and the biggest pre-wedding celebration</span>
+          </div>
         </div>
-        <h3 class="ritual-title">Engagement &amp; Sangeet</h3>
-        <p class="ritual-date">26th Jan</p>
-        <p class="ritual-copy">The evening begins with our engagement ceremony, then opens into a joyful sangeet full of music, dancing, and family celebration.</p>
+        <p class="ritual-date">26 January 2027</p>
+        <div class="ritual-copy-block">
+          <strong>What happens</strong>
+          <p class="ritual-copy">The evening begins with the engagement ceremony, which marks the formal beginning of the couple's journey together. After that, the celebration opens into the sangeet: music, dancing, family performances, speeches, and a lot of energy in one room.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>Why it matters</strong>
+          <p class="ritual-copy">This event is about both commitment and joy. The engagement honors the coming together of two families, and the sangeet celebrates that union in the most lively, expressive way possible.</p>
+        </div>
       </article>
 
       <article class="ritual-card reveal">
-        <div class="ritual-icon" aria-hidden="true">
-          <svg width="46" height="44" viewBox="0 0 46 44">
-            <path d="M13 35 C8 27 8 17 14 10 C19 4 29 5 33 12 C37 20 28 25 24 37" fill="none" stroke="#356f4a" stroke-width="1.5"/>
-            <path d="M18 16 C21 18 25 18 28 15" fill="none" stroke="#b98522" stroke-width="1"/>
-            <circle cx="21" cy="23" r="2.5" fill="#a95d67" opacity=".62"/>
-            <circle cx="28" cy="28" r="2" fill="#e7cfa6" opacity=".9"/>
-          </svg>
+        <div class="ritual-head">
+          <div class="ritual-icon" aria-hidden="true">
+            <svg viewBox="0 0 30 30" fill="none">
+              <path d="M10 23 C6 18 7 11 12 8 C16 5 22 7 23 13 C24 18 20 20 18 24" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="15" cy="14" r="2.2" fill="rgba(157,93,99,.82)"/>
+              <circle cx="19" cy="18" r="1.6" fill="rgba(231,207,166,.92)"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="ritual-title">Mehendi</h3>
+            <span class="ritual-subtitle">Henna, color, and the easy joy of gathering together</span>
+          </div>
         </div>
-        <h3 class="ritual-title">Mehendi</h3>
-        <p class="ritual-date">29th Jan</p>
-        <p class="ritual-copy">Henna, music, and that first moment when it really starts to feel like the wedding is here.</p>
+        <p class="ritual-date">29 January 2027</p>
+        <div class="ritual-copy-block">
+          <strong>What happens</strong>
+          <p class="ritual-copy">Henna designs are applied in a festive setting with music, conversation, snacks, and time to settle into the wedding week. It is usually one of the most relaxed and social events, with plenty of chances to mingle.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>Why it matters</strong>
+          <p class="ritual-copy">Mehendi is associated with happiness, beauty, and good fortune. It carries a celebratory feeling, but it also gently marks the transition into the wedding ceremonies ahead.</p>
+        </div>
       </article>
 
       <article class="ritual-card reveal">
-        <div class="ritual-icon" aria-hidden="true">
-          <svg width="46" height="44" viewBox="0 0 46 44">
-            <circle cx="23" cy="22" r="14" fill="#ffd86a" opacity=".85"/>
-            <circle cx="23" cy="22" r="8" fill="none" stroke="#b98522" stroke-width="1"/>
-            <path d="M8 36 C17 30 29 30 38 36" fill="none" stroke="#356f4a" stroke-width="1.4"/>
-          </svg>
+        <div class="ritual-head">
+          <div class="ritual-icon" aria-hidden="true">
+            <svg viewBox="0 0 30 30" fill="none">
+              <circle cx="15" cy="15" r="8.8" fill="rgba(255,216,106,.88)" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M6 23 C11 19 19 19 24 23" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="ritual-title">Haldi</h3>
+            <span class="ritual-subtitle">A bright, playful ceremony centered on blessing and care</span>
+          </div>
         </div>
-        <h3 class="ritual-title">Haldi</h3>
-        <p class="ritual-date">30th Jan</p>
-        <p class="ritual-copy">A bright, messy, happy morning with turmeric, blessings, and a lot of teasing.</p>
+        <p class="ritual-date">30 January 2027</p>
+        <div class="ritual-copy-block">
+          <strong>What happens</strong>
+          <p class="ritual-copy">During haldi, a turmeric paste is applied by close family and friends in a ceremony that is often joyful, affectionate, and a little messy in the best way. There is usually lots of laughter, teasing, and warm family energy.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>Why it matters</strong>
+          <p class="ritual-copy">Turmeric is tied to purification, blessing, and prosperity. The ritual is meant to prepare the couple for marriage while surrounding them with love, good wishes, and community.</p>
+        </div>
       </article>
 
       <article class="ritual-card reveal">
-        <div class="ritual-icon" aria-hidden="true">
-          <svg width="46" height="44" viewBox="0 0 46 44">
-            <path d="M10 34 H36 L32 22 C29 29 17 29 14 22Z" fill="#c0392b" opacity=".85"/>
-            <path d="M23 24 C20 17 22 11 23 8 C25 12 28 17 23 24Z" fill="#ffd86a"/>
-            <path d="M12 16 C18 10 28 10 34 16" fill="none" stroke="#b98522" stroke-width="1.3"/>
-            <circle cx="23" cy="17" r="13" fill="none" stroke="#b98522" stroke-width=".9" stroke-dasharray="3 5"/>
-          </svg>
+        <div class="ritual-head">
+          <div class="ritual-icon" aria-hidden="true">
+            <svg viewBox="0 0 30 30" fill="none">
+              <path d="M8 22 H22 L20 14 C18 18 12 18 10 14 Z" fill="rgba(198,40,61,.82)" stroke="currentColor" stroke-width="1"/>
+              <path d="M15 15 C13 10 14 7 15 5 C16.5 7.8 18 10.5 15 15Z" fill="rgba(255,216,106,.92)"/>
+              <path d="M8 11 C11 7.5 19 7.5 22 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="ritual-title">Wedding Ceremony</h3>
+            <span class="ritual-subtitle">The sacred heart of the celebrations</span>
+          </div>
         </div>
-        <h3 class="ritual-title">Wedding</h3>
-        <p class="ritual-date">31st Jan</p>
-        <p class="ritual-copy">The quiet, sacred part of it all: our promises, our families, and the start of married life.</p>
+        <p class="ritual-date">31 January 2027</p>
+        <div class="ritual-copy-block">
+          <strong>What happens</strong>
+          <p class="ritual-copy">The ceremony includes sacred rituals, prayers, vows, and symbolic moments that formally mark the marriage itself. It is often guided by family tradition and can include several meaningful steps that unfold over the course of the ceremony.</p>
+        </div>
+        <div class="ritual-copy-block">
+          <strong>Why it matters</strong>
+          <p class="ritual-copy">This is the most symbolic part of the week. It is about commitment, blessing, and the spiritual meaning of marriage, all held in the presence of family and community.</p>
+        </div>
       </article>
     </div>
   </div>
@@ -2099,7 +2221,7 @@ const obs=new IntersectionObserver(es=>es.forEach(e=>{
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const staggerGroups=['.ritual-grid','.travel-layout','.hotel-grid','.story-grid','.trip-grid','.trip-links'];
+const staggerGroups=['.timeline','.ritual-grid','.travel-layout','.hotel-grid','.story-grid','.trip-grid','.trip-links'];
 staggerGroups.forEach(selector=>{
   document.querySelectorAll(selector).forEach(group=>{
     [...group.children]
