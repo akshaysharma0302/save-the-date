@@ -2170,9 +2170,12 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <h2 class="reveal">Can you make it?</h2>
   <p class="reveal">We’d love to know if you’ll be there. It means a lot to celebrate this with you.</p>
 
-  <form class="rsvp-form reveal" id="rsvp-wrap" novalidate>
+  <form class="rsvp-form reveal" id="rsvp-wrap" action="https://formspree.io/f/xbdvwwdp" method="POST" novalidate>
     <input type="hidden" name="event" value="Akshay &amp; Amrita Wedding"/>
     <input type="hidden" name="attending" value="yes"/>
+    <input type="hidden" id="rsvp-total-guests" name="total_guests" value="1"/>
+    <input type="hidden" id="rsvp-submitted-at" name="submitted_at"/>
+    <input type="hidden" name="_subject" value="New wedding RSVP"/>
     <input type="text" id="rsvp-name" name="name" placeholder="Your name" autocomplete="name" required/>
     <input type="email" id="rsvp-email" name="email" placeholder="Your email" autocomplete="email" required/>
     <input type="tel" id="rsvp-phone" name="phone" placeholder="Phone number" autocomplete="tel" required/>
@@ -2504,11 +2507,13 @@ const rsvpEmail=document.getElementById('rsvp-email');
 const rsvpPhone=document.getElementById('rsvp-phone');
 const rsvpGuests=document.getElementById('rsvp-guests');
 const rsvpGuestName=document.getElementById('rsvp-guest-name');
+const rsvpTotalGuests=document.getElementById('rsvp-total-guests');
+const rsvpSubmittedAt=document.getElementById('rsvp-submitted-at');
 const rsvpMessage=document.getElementById('rsvp-message');
 const rsvpDone=document.getElementById('rsvp-done');
 const rsvpEdit=document.getElementById('rsvp-edit');
 const rsvpSubmit=rsvpForm.querySelector('button[type="submit"]');
-const RSVP_FORM_ENDPOINT='https://formspree.io/f/xbdvwwdp';
+const RSVP_FORM_ENDPOINT=rsvpForm.action;
 
 function showSavedRSVP(saved){
   rsvpForm.style.display='none';
@@ -2521,38 +2526,12 @@ function updateGuestField(){
   const hasPlusOne=rsvpGuests.value==='1';
   rsvpGuestName.hidden=!hasPlusOne;
   if(!hasPlusOne)rsvpGuestName.value='';
-}
-
-async function sendRSVP(saved){
-  if(!RSVP_FORM_ENDPOINT){
-    return {ok:true, storedOnly:true};
-  }
-
-  const formData=new FormData(rsvpForm);
-  formData.set('name',saved.name);
-  formData.set('email',saved.email);
-  formData.set('phone',saved.phone);
-  formData.set('additional_guests',saved.additionalGuests);
-  formData.set('guest_name',saved.guestName);
-  formData.set('total_guests',saved.totalGuests);
-  formData.set('submitted_at',saved.createdAt);
-
-  const response=await fetch(RSVP_FORM_ENDPOINT,{
-    method:'POST',
-    headers:{Accept:'application/json'},
-    body:formData
-  });
-
-  if(!response.ok){
-    throw new Error('RSVP submission failed');
-  }
-
-  return {ok:true, storedOnly:false};
+  rsvpTotalGuests.value=String(1+Number(rsvpGuests.value||0));
 }
 
 try{
   const saved=JSON.parse(localStorage.getItem('akshay-amrita-rsvp')||'null');
-  if(saved&&saved.name&&saved.email)showSavedRSVP(saved);
+  if(saved&&saved.name&&saved.email&&saved.submittedToFormspree)showSavedRSVP(saved);
 }catch(err){
   localStorage.removeItem('akshay-amrita-rsvp');
 }
@@ -2590,18 +2569,11 @@ rsvpForm.addEventListener('submit',async event=>{
     totalGuests:1+additionalGuests,
     createdAt:new Date().toISOString()
   };
-  rsvpMessage.textContent=RSVP_FORM_ENDPOINT?'Sending your RSVP...':'Saving your RSVP...';
+  rsvpTotalGuests.value=String(saved.totalGuests);
+  rsvpSubmittedAt.value=saved.createdAt;
+  rsvpMessage.textContent='Sending your RSVP...';
   rsvpSubmit.disabled=true;
-  try{
-    await sendRSVP(saved);
-    localStorage.setItem('akshay-amrita-rsvp',JSON.stringify(saved));
-    rsvpMessage.textContent='';
-    showSavedRSVP(saved);
-  }catch(err){
-    rsvpMessage.textContent='Sorry, the RSVP could not be sent. Please try again in a moment.';
-  }finally{
-    rsvpSubmit.disabled=false;
-  }
+  rsvpForm.submit();
 });
 
 rsvpEdit.addEventListener('click',()=>{

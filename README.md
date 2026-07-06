@@ -38,19 +38,19 @@ The RSVP form is ready to send submissions through Formspree, which works with G
 https://formspree.io/f/abcdwxyz
 ```
 
-3. Open `index.html` and find:
+3. Open `index.html` and find the RSVP form:
 
-```js
-const RSVP_FORM_ENDPOINT='';
+```html
+<form class="rsvp-form reveal" id="rsvp-wrap" action="https://formspree.io/f/xbdvwwdp" method="POST" novalidate>
 ```
 
-4. Paste the endpoint between the quotes:
+4. Replace the `action` URL with your Formspree endpoint:
 
-```js
-const RSVP_FORM_ENDPOINT='https://formspree.io/f/abcdwxyz';
+```html
+action="https://formspree.io/f/abcdwxyz"
 ```
 
-Until that endpoint is filled in, the RSVP is only saved in the guest's browser.
+The RSVP first tries to submit in-page. If that is blocked by a local preview or browser setting, it falls back to a normal Formspree submit page.
 
 ## Changing the address
 
