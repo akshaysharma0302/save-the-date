@@ -57,10 +57,10 @@ The RSVP first tries to submit in-page. If that is blocked by a local preview or
 Open `index.html` and find the `eventDetails` object. Update these fields:
 
 ```js
-location:'New Delhi, India',
+location:'Chattarpur Central by FNP Venues, New Delhi, India',
 shortLocation:'Delhi',
-mapQuery:'New Delhi India',
-description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
+mapQuery:'Chattarpur Central by FNP Venues New Delhi India',
+description:"Akshay and Amrita are getting married at Chattarpur Central by FNP Venues in New Delhi, India. We'd love to celebrate with you."
 ```
 
 `location` updates the visible venue text and calendar location. `mapQuery` controls the Open map button. `shortLocation` is used in the RSVP thank-you message.

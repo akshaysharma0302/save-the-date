@@ -587,11 +587,13 @@ body.is-ready .hero-animate{
 .travel-item-copy{
   display:block;font-size:.78rem;line-height:1.68;color:var(--muted);
 }
+.travel-card>p a,
 .travel-item-copy a,
 .hotel-copy a,
 .hotel-link{
   color:var(--vermilion);text-decoration:none;border-bottom:1px solid rgba(157,93,99,.24);
 }
+.travel-card>p a:hover,
 .travel-item-copy a:hover,
 .hotel-copy a:hover,
 .hotel-link:hover{border-color:rgba(157,93,99,.5)}
@@ -885,7 +887,10 @@ body.is-ready .hero-animate{
   letter-spacing:.04em;padding:.65rem .2rem;
   outline:none;transition:border-color .3s;text-align:center;
 }
-.rsvp-form select{appearance:none;cursor:pointer}
+.rsvp-form select{
+  appearance:none;cursor:pointer;
+  text-align:center;text-align-last:center;
+}
 .form-message{min-height:1.2rem;font-size:.75rem;color:var(--vermilion)}
 .rsvp-form input::placeholder{color:rgba(74,38,32,.35)}
 .rsvp-form input:focus,
@@ -1812,7 +1817,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       <article class="travel-card reveal">
         <h3>Where to stay</h3>
         <strong>Hotel options near Delhi Aerocity</strong>
-        <p>If you want the easiest airport arrival and simple transport during the wedding week, staying in or around Aerocity is probably the smoothest option.</p>
+        <p>If you want the easiest airport arrival and simple transport during the wedding week, staying in or around Aerocity is probably the smoothest option. These are just a few options; more choices, including more reasonable stays, can be found on <a href="https://www.trivago.com/" target="_blank" rel="noopener">Trivago</a> or <a href="https://www.expedia.com/" target="_blank" rel="noopener">Expedia</a>. Recommended areas are Aerocity, Vasant Kunj, and Vasant Vihar.</p>
         <div class="hotel-grid">
           <div class="hotel-card reveal">
             <span class="hotel-name">Andaz Delhi</span>
@@ -2402,12 +2407,12 @@ window.addEventListener('hashchange',()=>syncHashScroll(window.location.hash));
 // To change the address, edit location, shortLocation, mapQuery, and description here.
 const eventDetails={
   title:'Akshay & Amrita Wedding',
-  location:'New Delhi, India',
+  location:'Chattarpur Central by FNP Venues, New Delhi, India',
   shortLocation:'Delhi',
-  mapQuery:'New Delhi India',
+  mapQuery:'Chattarpur Central by FNP Venues New Delhi India',
   start:new Date('2027-01-31T17:00:00+05:30'),
   end:new Date('2027-02-01T00:00:00+05:30'),
-  description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
+  description:"Akshay and Amrita are getting married at Chattarpur Central by FNP Venues in New Delhi, India. We'd love to celebrate with you."
 };
 
 const heroLocation=document.getElementById('wedding-location');
