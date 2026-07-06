@@ -2529,12 +2529,27 @@ function updateGuestField(){
   rsvpTotalGuests.value=String(1+Number(rsvpGuests.value||0));
 }
 
-try{
-  const saved=JSON.parse(localStorage.getItem('akshay-amrita-rsvp')||'null');
-  if(saved&&saved.name&&saved.email&&saved.submittedToFormspree)showSavedRSVP(saved);
-}catch(err){
-  localStorage.removeItem('akshay-amrita-rsvp');
+function resetRSVPForm(){
+  rsvpForm.reset();
+  rsvpTotalGuests.value='1';
+  rsvpSubmittedAt.value='';
+  rsvpMessage.textContent='';
+  rsvpDone.textContent='';
+  rsvpDone.classList.remove('show');
+  rsvpEdit.classList.remove('show');
+  rsvpForm.style.display='flex';
+  rsvpSubmit.disabled=false;
+  updateGuestField();
 }
+
+try{
+  localStorage.removeItem('akshay-amrita-rsvp');
+}catch(err){
+  // Ignore browsers that block localStorage.
+}
+
+window.addEventListener('pageshow',resetRSVPForm);
+resetRSVPForm();
 
 rsvpForm.addEventListener('submit',async event=>{
   event.preventDefault();
