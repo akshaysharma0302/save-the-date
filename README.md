@@ -27,7 +27,44 @@ After pushing to `main`, enable Pages in GitHub:
 https://akshaysharma0302.github.io/save-the-date/
 ```
 
+## RSVP responses
+
+The RSVP form is ready to send submissions through Formspree, which works with GitHub Pages and does not need a backend.
+
+1. Create a form at [Formspree](https://formspree.io/).
+2. Copy the form endpoint. It will look like:
+
+```text
+https://formspree.io/f/abcdwxyz
+```
+
+3. Open `index.html` and find:
+
+```js
+const RSVP_FORM_ENDPOINT='';
+```
+
+4. Paste the endpoint between the quotes:
+
+```js
+const RSVP_FORM_ENDPOINT='https://formspree.io/f/abcdwxyz';
+```
+
+Until that endpoint is filled in, the RSVP is only saved in the guest's browser.
+
+## Changing the address
+
+Open `index.html` and find the `eventDetails` object. Update these fields:
+
+```js
+location:'New Delhi, India',
+shortLocation:'Delhi',
+mapQuery:'New Delhi India',
+description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
+```
+
+`location` updates the visible venue text and calendar location. `mapQuery` controls the Open map button. `shortLocation` is used in the RSVP thank-you message.
+
 ## Optional music
 
 If you want the music button to appear, add a `music.mp3` file beside `index.html`.
-

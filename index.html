@@ -1495,7 +1495,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 
   <p class="hero-date hero-animate" style="--hero-delay:.4s">31st January · 2027</p>
-  <p class="hero-venue hero-animate" style="--hero-delay:.48s">New Delhi, India</p>
+  <p class="hero-venue hero-animate" id="wedding-location" style="--hero-delay:.48s">New Delhi, India</p>
   <p class="hero-venue hero-animate" style="--hero-delay:.56s">Our everyday is in Toronto, but our hearts are throwing the party in Delhi.</p>
   <div class="hero-rule hero-animate" style="--hero-delay:.62s"></div>
   <div class="hero-actions hero-animate" style="--hero-delay:.7s" aria-label="Wedding actions">
@@ -2167,8 +2167,10 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <p class="reveal">We’d love to know if you’ll be there. It means a lot to celebrate this with you.</p>
 
   <form class="rsvp-form reveal" id="rsvp-wrap" novalidate>
-    <input type="text" id="rsvp-name" placeholder="Your name" autocomplete="name" required/>
-    <input type="email" id="rsvp-email" placeholder="Your email" autocomplete="email" required/>
+    <input type="hidden" name="event" value="Akshay &amp; Amrita Wedding"/>
+    <input type="hidden" name="attending" value="yes"/>
+    <input type="text" id="rsvp-name" name="name" placeholder="Your name" autocomplete="name" required/>
+    <input type="email" id="rsvp-email" name="email" placeholder="Your email" autocomplete="email" required/>
     <p class="form-message" id="rsvp-message" role="status" aria-live="polite"></p>
     <button class="rsvp-btn" type="submit">I’ll be there &nbsp;✦</button>
   </form>
@@ -2215,7 +2217,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 <footer>
   <span class="footer-tagline">See you in Delhi.</span>
-  <small>Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; New Delhi, India</small>
+  <small id="footer-event-details">Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; New Delhi, India</small>
 </footer>
 
 </div><!-- /page -->
@@ -2383,14 +2385,26 @@ window.addEventListener('hashchange',()=>syncHashScroll(window.location.hash));
   draw();
 })();
 
-// ── Event details used by countdown + calendar
+// ── Event details used by venue text, map link, countdown, and calendar.
+// To change the address, edit location, shortLocation, mapQuery, and description here.
 const eventDetails={
   title:'Akshay & Amrita Wedding',
   location:'New Delhi, India',
+  shortLocation:'Delhi',
+  mapQuery:'New Delhi India',
   start:new Date('2027-01-31T17:00:00+05:30'),
   end:new Date('2027-02-01T00:00:00+05:30'),
   description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
 };
+
+const heroLocation=document.getElementById('wedding-location');
+if(heroLocation)heroLocation.textContent=eventDetails.location;
+
+const mapButton=document.getElementById('map-btn');
+if(mapButton)mapButton.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(eventDetails.mapQuery);
+
+const footerEventDetails=document.getElementById('footer-event-details');
+if(footerEventDetails)footerEventDetails.textContent='Akshay & Amrita · 31 January · '+eventDetails.location;
 
 function setStatus(message){
   const status=document.getElementById('action-status');
@@ -2480,12 +2494,37 @@ const rsvpEmail=document.getElementById('rsvp-email');
 const rsvpMessage=document.getElementById('rsvp-message');
 const rsvpDone=document.getElementById('rsvp-done');
 const rsvpEdit=document.getElementById('rsvp-edit');
+const rsvpSubmit=rsvpForm.querySelector('button[type="submit"]');
+const RSVP_FORM_ENDPOINT='https://formspree.io/f/xbdvwwdp';
 
 function showSavedRSVP(saved){
   rsvpForm.style.display='none';
-  rsvpDone.textContent='Thank you, '+saved.name+'! We\u2019re so happy you can make it. See you in Delhi.';
+  rsvpDone.textContent='Thank you, '+saved.name+'! We\u2019re so happy you can make it. See you in '+eventDetails.shortLocation+'.';
   rsvpDone.classList.add('show');
   rsvpEdit.classList.add('show');
+}
+
+async function sendRSVP(saved){
+  if(!RSVP_FORM_ENDPOINT){
+    return {ok:true, storedOnly:true};
+  }
+
+  const formData=new FormData(rsvpForm);
+  formData.set('name',saved.name);
+  formData.set('email',saved.email);
+  formData.set('submitted_at',saved.createdAt);
+
+  const response=await fetch(RSVP_FORM_ENDPOINT,{
+    method:'POST',
+    headers:{Accept:'application/json'},
+    body:formData
+  });
+
+  if(!response.ok){
+    throw new Error('RSVP submission failed');
+  }
+
+  return {ok:true, storedOnly:false};
 }
 
 try{
@@ -2495,7 +2534,7 @@ try{
   localStorage.removeItem('akshay-amrita-rsvp');
 }
 
-rsvpForm.addEventListener('submit',event=>{
+rsvpForm.addEventListener('submit',async event=>{
   event.preventDefault();
   const name=rsvpName.value.trim();
   const email=rsvpEmail.value.trim();
@@ -2511,9 +2550,18 @@ rsvpForm.addEventListener('submit',event=>{
     return;
   }
   const saved={name,email,createdAt:new Date().toISOString()};
-  localStorage.setItem('akshay-amrita-rsvp',JSON.stringify(saved));
-  rsvpMessage.textContent='';
-  showSavedRSVP(saved);
+  rsvpMessage.textContent=RSVP_FORM_ENDPOINT?'Sending your RSVP...':'Saving your RSVP...';
+  rsvpSubmit.disabled=true;
+  try{
+    await sendRSVP(saved);
+    localStorage.setItem('akshay-amrita-rsvp',JSON.stringify(saved));
+    rsvpMessage.textContent='';
+    showSavedRSVP(saved);
+  }catch(err){
+    rsvpMessage.textContent='Sorry, the RSVP could not be sent. Please try again in a moment.';
+  }finally{
+    rsvpSubmit.disabled=false;
+  }
 });
 
 rsvpEdit.addEventListener('click',()=>{
