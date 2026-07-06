@@ -2404,10 +2404,11 @@ window.addEventListener('hashchange',()=>syncHashScroll(window.location.hash));
 })();
 
 // ── Event details used by venue text, map link, countdown, and calendar.
-// To change the address, edit location, shortLocation, mapQuery, and description here.
+// Display location appears on the page; calendarLocation/mapQuery power the invite and map.
 const eventDetails={
   title:'Akshay & Amrita Wedding',
-  location:'Chattarpur Central by FNP Venues, New Delhi, India',
+  location:'New Delhi, India',
+  calendarLocation:'Chattarpur Central by FNP Venues, New Delhi, India',
   shortLocation:'Delhi',
   mapQuery:'Chattarpur Central by FNP Venues New Delhi India',
   start:new Date('2027-01-31T17:00:00+05:30'),
@@ -2460,7 +2461,7 @@ document.getElementById('calendar-btn').addEventListener('click',()=>{
     `DTSTART:${fmt(eventDetails.start)}`,
     `DTEND:${fmt(eventDetails.end)}`,
     `SUMMARY:${eventDetails.title}`,
-    `LOCATION:${eventDetails.location}`,
+    `LOCATION:${eventDetails.calendarLocation}`,
     `DESCRIPTION:${eventDetails.description}`,
     'END:VEVENT',
     'END:VCALENDAR'
