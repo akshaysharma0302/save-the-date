@@ -20,9 +20,11 @@ save-the-date/
 │   └── trip/
 │       ├── akshardham-mandir.jpg
 │       ├── humayun-tomb.jpeg
+│       ├── lotus-temple.jpg
 │       ├── lotus-temple.webp
 │       ├── qutub-minar.jpeg
 │       ├── red-fort.jpeg
+│       ├── taj-mahal.jpg
 │       └── taj-mahal.webp
 ├── index.html
 ├── input/
@@ -43,12 +45,11 @@ save-the-date/
   - Delhi visitor/travel image assets.
   - Current in-use images:
     - `akshardham-mandir.jpg`
-    - `lotus-temple.webp`
-    - `qutub-minar.jpeg`
-    - `taj-mahal.webp`
-  - Current not-yet-used images:
+    - `lotus-temple.jpg`
     - `humayun-tomb.jpeg`
+    - `qutub-minar.jpeg`
     - `red-fort.jpeg`
+    - `taj-mahal.jpg`
 
 - `input/images/front-page-background.png`
   - Source or earlier storage location for the hero art.
