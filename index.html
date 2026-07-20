@@ -1210,8 +1210,8 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 </header>
 
-<audio id="bg-audio" loop preload="auto" playsinline data-src="Bruno Mars - Just the Way You Are (Piano Solo Cover) - The Piano Guys .mp3">
-  <source type="audio/mpeg"/>
+<audio id="bg-audio" loop preload="none" playsinline data-src="music.mp3">
+  <source src="music.mp3" type="audio/mpeg"/>
 </audio>
 <button id="audio-btn" aria-label="Play music">♪ Play Music</button>
 <div id="audio-modal" aria-hidden="true">
@@ -2538,11 +2538,14 @@ let on=false;
 let userStopped=false;
 let autoplayBlocked=false;
 let audioPromptOpen=false;
-const audioSource=au.dataset.src?encodeURI(au.dataset.src):'';
 const sourceEl=au.querySelector('source');
-if(audioSource&&sourceEl){
-  sourceEl.src=audioSource;
-  au.load();
+const audioSource=(au.dataset.src||(sourceEl&&sourceEl.getAttribute('src'))||'').trim();
+function ensureAudioSource(){
+  if(!audioSource||!sourceEl)return false;
+  if(sourceEl.getAttribute('src')!==audioSource){
+    sourceEl.setAttribute('src',audioSource);
+  }
+  return true;
 }
 function openAudioModal(){
   audioPromptOpen=true;
@@ -2576,6 +2579,8 @@ function updateAudioButton(){
 async function startAudio({auto=false}={}){
   if(!audioSource||userStopped)return false;
   try{
+    if(!ensureAudioSource())return false;
+    au.load();
     await au.play();
     on=true;
     autoplayBlocked=false;
@@ -2652,11 +2657,9 @@ au.addEventListener('pause',()=>{
   updateAudioButton();
 });
 au.addEventListener('error',()=>{
-  btn.style.display='none';
-  if(audioModal){
-    audioModal.classList.remove('show');
-    audioModal.setAttribute('aria-hidden','true');
-  }
+  on=false;
+  closeAudioModal();
+  updateAudioButton();
   setStatus('There was a problem loading the music file.');
 });
 </script>
