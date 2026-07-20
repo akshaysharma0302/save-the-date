@@ -2695,8 +2695,10 @@ async function startAudio({auto=false}={}){
     return true;
   }catch(err){
     audioStarting=false;
-    autoplayBlocked=auto;
-    if(!auto)openAudioModal();
+    const blocked=err&&err.name==='NotAllowedError';
+    autoplayBlocked=blocked||auto;
+    if(auto)openAudioModal();
+    else closeAudioModal();
     updateAudioButton();
     return false;
   }
@@ -2728,7 +2730,9 @@ btn.addEventListener('click',async()=>{
   userStopped=false;
   const started=await startAudio();
   if(!started){
-    setStatus('Music is ready, but your browser needs a tap before it can start playing.');
+    setStatus(autoplayBlocked
+      ? 'Music is ready, but your browser needs a tap before it can start playing.'
+      : 'The music file could not be loaded on this device.');
   }
 });
 if(audioModalStart){
@@ -2736,7 +2740,9 @@ if(audioModalStart){
     userStopped=false;
     const started=await startAudio();
     if(!started){
-      setStatus('Your browser is still blocking audio. Try the music button once more.');
+      setStatus(autoplayBlocked
+        ? 'Your browser is blocking automatic audio. Use the music button after interacting with the page.'
+        : 'The music file could not be loaded on this device.');
     }
   });
 }
