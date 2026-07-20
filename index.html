@@ -2626,14 +2626,18 @@ let on=false;
 let userStopped=false;
 let autoplayBlocked=false;
 let audioPromptOpen=false;
+let audioStarting=false;
 const sourceEl=au.querySelector('source');
 const audioSource=(au.dataset.src||(sourceEl&&sourceEl.getAttribute('src'))||'').trim();
 function ensureAudioSource(){
-  if(!audioSource||!sourceEl)return false;
-  if(sourceEl.getAttribute('src')!==audioSource){
-    sourceEl.setAttribute('src',audioSource);
+  if(!audioSource)return false;
+  if(au.getAttribute('src')!==audioSource){
+    au.setAttribute('src',audioSource);
   }
   return true;
+}
+function isAudioPlaying(){
+  return !au.paused&&!au.ended;
 }
 function openAudioModal(){
   audioPromptOpen=true;
@@ -2650,6 +2654,15 @@ function updateAudioModal(){
   audioModal.setAttribute('aria-hidden',shouldShow?'false':'true');
 }
 function updateAudioButton(){
+  on=isAudioPlaying();
+  if(audioStarting){
+    btn.textContent='Loading Music...';
+    btn.classList.add('is-ready');
+    btn.classList.remove('is-playing');
+    btn.setAttribute('aria-label','Music is loading');
+    updateAudioModal();
+    return;
+  }
   if(on){
     btn.textContent='\u25A0 Stop Music';
     btn.classList.add('is-playing');
@@ -2665,18 +2678,23 @@ function updateAudioButton(){
   updateAudioModal();
 }
 async function startAudio({auto=false}={}){
-  if(!audioSource||userStopped)return false;
+  if(!audioSource||userStopped||audioStarting)return false;
+  audioStarting=true;
+  updateAudioButton();
   try{
-    if(!ensureAudioSource())return false;
-    au.load();
+    if(!ensureAudioSource()){
+      audioStarting=false;
+      updateAudioButton();
+      return false;
+    }
     await au.play();
-    on=true;
+    audioStarting=false;
     autoplayBlocked=false;
     closeAudioModal();
     updateAudioButton();
     return true;
   }catch(err){
-    on=false;
+    audioStarting=false;
     autoplayBlocked=auto;
     if(!auto)openAudioModal();
     updateAudioButton();
@@ -2684,11 +2702,12 @@ async function startAudio({auto=false}={}){
   }
 }
 function stopAudio(){
+  userStopped=true;
+  audioStarting=false;
   au.pause();
   try{au.currentTime=0;}catch(err){}
-  on=false;
-  userStopped=true;
   autoplayBlocked=false;
+  closeAudioModal();
   updateAudioButton();
 }
 async function setupAudio(){
@@ -2702,7 +2721,7 @@ async function setupAudio(){
 }
 setupAudio();
 btn.addEventListener('click',async()=>{
-  if(on){
+  if(audioStarting||isAudioPlaying()){
     stopAudio();
     return;
   }
@@ -2736,16 +2755,20 @@ if(audioModal){
   });
 }
 au.addEventListener('play',()=>{
-  on=true;
+  audioStarting=false;
   autoplayBlocked=false;
   updateAudioButton();
 });
 au.addEventListener('pause',()=>{
-  on=false;
+  audioStarting=false;
+  updateAudioButton();
+});
+au.addEventListener('ended',()=>{
+  audioStarting=false;
   updateAudioButton();
 });
 au.addEventListener('error',()=>{
-  on=false;
+  audioStarting=false;
   closeAudioModal();
   updateAudioButton();
   setStatus('There was a problem loading the music file.');
