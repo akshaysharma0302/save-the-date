@@ -587,11 +587,13 @@ body.is-ready .hero-animate{
 .travel-item-copy{
   display:block;font-size:.78rem;line-height:1.68;color:var(--muted);
 }
+.travel-card>p a,
 .travel-item-copy a,
 .hotel-copy a,
 .hotel-link{
   color:var(--vermilion);text-decoration:none;border-bottom:1px solid rgba(157,93,99,.24);
 }
+.travel-card>p a:hover,
 .travel-item-copy a:hover,
 .hotel-copy a:hover,
 .hotel-link:hover{border-color:rgba(157,93,99,.5)}
@@ -877,16 +879,22 @@ body.is-ready .hero-animate{
   display:flex;flex-direction:column;align-items:center;
   gap:1rem;max-width:340px;margin:0 auto;
 }
-.rsvp-form input{
+.rsvp-form input,
+.rsvp-form select{
   width:100%;background:rgba(255,253,248,.84);
   border:1px solid var(--line);border-radius:8px;
   color:var(--ink);font-family:var(--fs);font-size:.82rem;
   letter-spacing:.04em;padding:.65rem .2rem;
   outline:none;transition:border-color .3s;text-align:center;
 }
+.rsvp-form select{
+  appearance:none;cursor:pointer;
+  text-align:center;text-align-last:center;
+}
 .form-message{min-height:1.2rem;font-size:.75rem;color:var(--vermilion)}
 .rsvp-form input::placeholder{color:rgba(74,38,32,.35)}
-.rsvp-form input:focus{border-color:var(--gold)}
+.rsvp-form input:focus,
+.rsvp-form select:focus{border-color:var(--gold)}
 .rsvp-btn{
   margin-top:.6rem;padding:.85rem 2.5rem;
   background:var(--vermilion);border:1px solid var(--vermilion);
@@ -896,6 +904,7 @@ body.is-ready .hero-animate{
   box-shadow:0 12px 28px rgba(169,93,103,.18);
 }
 .rsvp-btn:hover{background:var(--ink);border-color:var(--ink);color:#fffdf9}
+.rsvp-btn:disabled{cursor:not-allowed;opacity:.65}
 .rsvp-confirm{
   display:none;font-family:var(--editorial);font-size:1.5rem;font-style:normal;
   color:var(--gold);margin-top:1rem;
@@ -1495,7 +1504,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   </div>
 
   <p class="hero-date hero-animate" style="--hero-delay:.4s">31st January · 2027</p>
-  <p class="hero-venue hero-animate" style="--hero-delay:.48s">New Delhi, India</p>
+  <p class="hero-venue hero-animate" id="wedding-location" style="--hero-delay:.48s">New Delhi, India</p>
   <p class="hero-venue hero-animate" style="--hero-delay:.56s">Our everyday is in Toronto, but our hearts are throwing the party in Delhi.</p>
   <div class="hero-rule hero-animate" style="--hero-delay:.62s"></div>
   <div class="hero-actions hero-animate" style="--hero-delay:.7s" aria-label="Wedding actions">
@@ -1808,7 +1817,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
       <article class="travel-card reveal">
         <h3>Where to stay</h3>
         <strong>Hotel options near Delhi Aerocity</strong>
-        <p>If you want the easiest airport arrival and simple transport during the wedding week, staying in or around Aerocity is probably the smoothest option.</p>
+        <p>If you want the easiest airport arrival and simple transport during the wedding week, staying in or around Aerocity is probably the smoothest option. These are just a few options; more choices, including more reasonable stays, can be found on <a href="https://www.trivago.com/" target="_blank" rel="noopener">Trivago</a> or <a href="https://www.expedia.com/" target="_blank" rel="noopener">Expedia</a>. Recommended areas are Aerocity, Vasant Kunj, and Vasant Vihar.</p>
         <div class="hotel-grid">
           <div class="hotel-card reveal">
             <span class="hotel-name">Andaz Delhi</span>
@@ -1989,7 +1998,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
       <article class="trip-card lotus reveal">
         <div class="trip-media">
-          <img src="images/trip/lotus-temple.webp" alt="Lotus Temple in Delhi at dusk" loading="lazy"/>
+          <img src="images/trip/lotus-temple.jpg" alt="Lotus Temple in Delhi at dusk" loading="lazy"/>
         </div>
         <div class="trip-copy">
           <div class="trip-meta">
@@ -2045,7 +2054,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
       <article class="trip-card taj reveal">
         <div class="trip-media">
-          <img src="images/trip/taj-mahal.webp" alt="The Taj Mahal during soft morning light" loading="lazy"/>
+          <img src="images/trip/taj-mahal.jpg" alt="The Taj Mahal during soft morning light" loading="lazy"/>
         </div>
         <div class="trip-copy">
           <div class="trip-meta">
@@ -2166,9 +2175,20 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
   <h2 class="reveal">Can you make it?</h2>
   <p class="reveal">We’d love to know if you’ll be there. It means a lot to celebrate this with you.</p>
 
-  <form class="rsvp-form reveal" id="rsvp-wrap" novalidate>
-    <input type="text" id="rsvp-name" placeholder="Your name" autocomplete="name" required/>
-    <input type="email" id="rsvp-email" placeholder="Your email" autocomplete="email" required/>
+  <form class="rsvp-form reveal" id="rsvp-wrap" action="https://formspree.io/f/xbdvwwdp" method="POST" novalidate>
+    <input type="hidden" name="event" value="Akshay &amp; Amrita Wedding"/>
+    <input type="hidden" name="attending" value="yes"/>
+    <input type="hidden" id="rsvp-total-guests" name="total_guests" value="1"/>
+    <input type="hidden" id="rsvp-submitted-at" name="submitted_at"/>
+    <input type="hidden" name="_subject" value="New wedding RSVP"/>
+    <input type="text" id="rsvp-name" name="name" placeholder="Your name" autocomplete="name" required/>
+    <input type="email" id="rsvp-email" name="email" placeholder="Your email" autocomplete="email" required/>
+    <input type="tel" id="rsvp-phone" name="phone" placeholder="Phone number" autocomplete="tel" required/>
+    <select id="rsvp-guests" name="additional_guests" aria-label="Additional guests">
+      <option value="0">Just me</option>
+      <option value="1">Me + 1 guest</option>
+    </select>
+    <input type="text" id="rsvp-guest-name" name="guest_name" placeholder="+1 guest name" autocomplete="off" hidden/>
     <p class="form-message" id="rsvp-message" role="status" aria-live="polite"></p>
     <button class="rsvp-btn" type="submit">I’ll be there &nbsp;✦</button>
   </form>
@@ -2215,7 +2235,7 @@ footer small{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color
 
 <footer>
   <span class="footer-tagline">See you in Delhi.</span>
-  <small>Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; New Delhi, India</small>
+  <small id="footer-event-details">Akshay &amp; Amrita &nbsp;·&nbsp; 31 January &nbsp;·&nbsp; New Delhi, India</small>
 </footer>
 
 </div><!-- /page -->
@@ -2383,14 +2403,27 @@ window.addEventListener('hashchange',()=>syncHashScroll(window.location.hash));
   draw();
 })();
 
-// ── Event details used by countdown + calendar
+// ── Event details used by venue text, map link, countdown, and calendar.
+// Display location appears on the page; calendarLocation/mapQuery power the invite and map.
 const eventDetails={
   title:'Akshay & Amrita Wedding',
   location:'New Delhi, India',
+  calendarLocation:'Chattarpur Central by FNP Venues, New Delhi, India',
+  shortLocation:'Delhi',
+  mapQuery:'Chattarpur Central by FNP Venues New Delhi India',
   start:new Date('2027-01-31T17:00:00+05:30'),
   end:new Date('2027-02-01T00:00:00+05:30'),
-  description:"Akshay and Amrita are getting married in New Delhi, India. We'd love to celebrate with you."
+  description:"Akshay and Amrita are getting married at Chattarpur Central by FNP Venues in New Delhi, India. We'd love to celebrate with you."
 };
+
+const heroLocation=document.getElementById('wedding-location');
+if(heroLocation)heroLocation.textContent=eventDetails.location;
+
+const mapButton=document.getElementById('map-btn');
+if(mapButton)mapButton.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(eventDetails.mapQuery);
+
+const footerEventDetails=document.getElementById('footer-event-details');
+if(footerEventDetails)footerEventDetails.textContent='Akshay & Amrita · 31 January · '+eventDetails.location;
 
 function setStatus(message){
   const status=document.getElementById('action-status');
@@ -2428,7 +2461,7 @@ document.getElementById('calendar-btn').addEventListener('click',()=>{
     `DTSTART:${fmt(eventDetails.start)}`,
     `DTEND:${fmt(eventDetails.end)}`,
     `SUMMARY:${eventDetails.title}`,
-    `LOCATION:${eventDetails.location}`,
+    `LOCATION:${eventDetails.calendarLocation}`,
     `DESCRIPTION:${eventDetails.description}`,
     'END:VEVENT',
     'END:VCALENDAR'
@@ -2477,28 +2510,61 @@ if(!reduceMotion){
 const rsvpForm=document.getElementById('rsvp-wrap');
 const rsvpName=document.getElementById('rsvp-name');
 const rsvpEmail=document.getElementById('rsvp-email');
+const rsvpPhone=document.getElementById('rsvp-phone');
+const rsvpGuests=document.getElementById('rsvp-guests');
+const rsvpGuestName=document.getElementById('rsvp-guest-name');
+const rsvpTotalGuests=document.getElementById('rsvp-total-guests');
+const rsvpSubmittedAt=document.getElementById('rsvp-submitted-at');
 const rsvpMessage=document.getElementById('rsvp-message');
 const rsvpDone=document.getElementById('rsvp-done');
 const rsvpEdit=document.getElementById('rsvp-edit');
+const rsvpSubmit=rsvpForm.querySelector('button[type="submit"]');
+const RSVP_FORM_ENDPOINT=rsvpForm.action;
 
 function showSavedRSVP(saved){
   rsvpForm.style.display='none';
-  rsvpDone.textContent='Thank you, '+saved.name+'! We\u2019re so happy you can make it. See you in Delhi.';
+  rsvpDone.textContent='Thank you, '+saved.name+'! We\u2019re so happy you can make it. See you in '+eventDetails.shortLocation+'.';
   rsvpDone.classList.add('show');
   rsvpEdit.classList.add('show');
 }
 
-try{
-  const saved=JSON.parse(localStorage.getItem('akshay-amrita-rsvp')||'null');
-  if(saved&&saved.name&&saved.email)showSavedRSVP(saved);
-}catch(err){
-  localStorage.removeItem('akshay-amrita-rsvp');
+function updateGuestField(){
+  const hasPlusOne=rsvpGuests.value==='1';
+  rsvpGuestName.hidden=!hasPlusOne;
+  if(!hasPlusOne)rsvpGuestName.value='';
+  rsvpTotalGuests.value=String(1+Number(rsvpGuests.value||0));
 }
 
-rsvpForm.addEventListener('submit',event=>{
+function resetRSVPForm(){
+  rsvpForm.reset();
+  rsvpTotalGuests.value='1';
+  rsvpSubmittedAt.value='';
+  rsvpMessage.textContent='';
+  rsvpDone.textContent='';
+  rsvpDone.classList.remove('show');
+  rsvpEdit.classList.remove('show');
+  rsvpForm.style.display='flex';
+  rsvpSubmit.disabled=false;
+  updateGuestField();
+}
+
+try{
+  localStorage.removeItem('akshay-amrita-rsvp');
+}catch(err){
+  // Ignore browsers that block localStorage.
+}
+
+window.addEventListener('pageshow',resetRSVPForm);
+resetRSVPForm();
+
+rsvpForm.addEventListener('submit',async event=>{
   event.preventDefault();
   const name=rsvpName.value.trim();
   const email=rsvpEmail.value.trim();
+  const phone=rsvpPhone.value.trim();
+  const additionalGuests=Number(rsvpGuests.value||0);
+  const guestName=rsvpGuestName.value.trim();
+  const phoneDigits=phone.replace(/\D/g,'');
   const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if(!name){
     rsvpMessage.textContent='Add your name so we know who to look for.';
@@ -2510,10 +2576,25 @@ rsvpForm.addEventListener('submit',event=>{
     rsvpEmail.focus();
     return;
   }
-  const saved={name,email,createdAt:new Date().toISOString()};
-  localStorage.setItem('akshay-amrita-rsvp',JSON.stringify(saved));
-  rsvpMessage.textContent='';
-  showSavedRSVP(saved);
+  if(phoneDigits.length<7){
+    rsvpMessage.textContent='Add a phone number so we can reach you if plans change.';
+    rsvpPhone.focus();
+    return;
+  }
+  const saved={
+    name,
+    email,
+    phone,
+    additionalGuests,
+    guestName,
+    totalGuests:1+additionalGuests,
+    createdAt:new Date().toISOString()
+  };
+  rsvpTotalGuests.value=String(saved.totalGuests);
+  rsvpSubmittedAt.value=saved.createdAt;
+  rsvpMessage.textContent='Sending your RSVP...';
+  rsvpSubmit.disabled=true;
+  rsvpForm.submit();
 });
 
 rsvpEdit.addEventListener('click',()=>{
@@ -2521,12 +2602,19 @@ rsvpEdit.addEventListener('click',()=>{
   if(saved){
     rsvpName.value=saved.name||'';
     rsvpEmail.value=saved.email||'';
+    rsvpPhone.value=saved.phone||'';
+    rsvpGuests.value=String(saved.additionalGuests||0);
+    rsvpGuestName.value=saved.guestName||'';
+    updateGuestField();
   }
   rsvpDone.classList.remove('show');
   rsvpEdit.classList.remove('show');
   rsvpForm.style.display='flex';
   rsvpName.focus();
 });
+
+rsvpGuests.addEventListener('change',updateGuestField);
+updateGuestField();
 
 // ── Audio
 const au=document.getElementById('bg-audio');

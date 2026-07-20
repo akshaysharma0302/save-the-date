@@ -89,14 +89,18 @@ Primary hero artwork:
 Current Delhi trip images in use:
 
 - `images/trip/akshardham-mandir.jpg`
-- `images/trip/lotus-temple.webp`
+- `images/trip/lotus-temple.jpg`
 - `images/trip/qutub-minar.jpeg`
-- `images/trip/taj-mahal.webp`
-
-Additional trip images currently present but not yet wired into the page:
-
+- `images/trip/taj-mahal.jpg`
 - `images/trip/humayun-tomb.jpeg`
 - `images/trip/red-fort.jpeg`
+
+The Lotus Temple and Taj Mahal photos were converted from WebP to JPG for better compatibility on older or locked-down PCs.
+
+Additional WebP originals still present:
+
+- `images/trip/lotus-temple.webp`
+- `images/trip/taj-mahal.webp`
 
 Source-style/input asset currently still present:
 
